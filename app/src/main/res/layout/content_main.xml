@@ -9,6 +9,38 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/linear_layout_above"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <EditText
+            android:id="@+id/base_currency_text"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:hint="base currency"/>
+        <Spinner
+            android:id="@+id/base_currency_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></Spinner>
+    </LinearLayout>
+    <LinearLayout>
+        android:id="@+id/linear_layout_below"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout_above"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <EditText
+            android:id="@+id/target_currency_text"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:hint="target currency"/>
+        <Spinner
+            android:id="@+id/target_currency_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></Spinner>
+    </LinearLayout>
 </RelativeLayout>
