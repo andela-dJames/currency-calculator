@@ -7,18 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="applicationTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
+
     </style>
-    <style name="mySpinnerStyle" parent="android:Widget.ListView.DropDown">
+
+    <style name="AppTheme.newAppTheme" parent="android:Widget.ListView.DropDown">
         <item name="android:divider">#00ff00</item>
         <item name="android:dividerHeight">1dp</item>
+        <item name="android:textColor">#ECEFF1</item>
     </style>
 
 </resources>

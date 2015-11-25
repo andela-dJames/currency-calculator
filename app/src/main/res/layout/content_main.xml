@@ -5,6 +5,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#37474F"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
@@ -14,20 +15,24 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <EditText
             android:id="@+id/base_currency_text"
             android:layout_width="250dp"
             android:layout_height="25dp"
             android:hint="base currency"
             android:layout_gravity="left"
-            android:inputType="number"
+            android:inputType="number|text"
             android:maxLines="1"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/abc_text_size_body_2_material"
+            android:textColor="#eceff1"
+            android:textColorHint="#ECEFF1"/>
         <Spinner
             android:id="@+id/base_currency_spinner"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_gravity="right"></Spinner>
+            android:layout_gravity="right"
+            android:popupTheme="@style/AppTheme.newAppTheme"></Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -50,12 +55,21 @@
             android:hint="target currency"
             android:layout_gravity="left"
             android:editable="false"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
         <Spinner
             android:id="@+id/target_currency_spinner"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_gravity="right"
-            android:theme="@style/AppTheme.AppBarOverlay"></Spinner>
+            android:layout_gravity="right"></Spinner>
     </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="90dp"
+        android:numColumns="4"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"></GridLayout>
 </RelativeLayout>

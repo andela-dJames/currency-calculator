@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.andela.currency_calculator.Constants;
 import com.andela.currency_calculator.models.Currency.Rate;
+import com.andela.currency_calculator.operations.ArithmeticOperator;
+import com.andela.currency_calculator.operations.Converter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +34,16 @@ public class EchangeRateAPICollection extends AsyncTask<Rate, String, String> im
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d("ACTIVITY", result);
+        Rate rate = new Rate();
+        double f = Double.parseDouble(result);
+        rate.setExchangeRate(f);
+        Converter converter = new Converter(rate);
+        double print = converter.reverseConvert(100);
+        String str = String.valueOf(print);
+        Log.d("ACTIVITY", str);
+        ArithmeticOperator arithmeticOperator = new ArithmeticOperator();
+        double c = arithmeticOperator.minus(3, 4, (-10));
+        Log.d("ANOTHER_ACTIVITY", String.valueOf(c) );
     }
 
     private  String separator = "/";
