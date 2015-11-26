@@ -6,16 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andela.currency_calculator.R;
 import com.andela.currency_calculator.models.Currency.Rate;
-import com.andela.currency_calculator.models.dal.EchangeRateAPICollection;
+import com.andela.currency_calculator.models.dal.ExchangeRateAPICollection;
 
 import java.net.URL;
 
@@ -33,9 +29,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initializeBaseSpinner();
         intializeTargetSpinner();
-         EchangeRateAPICollection exchangeRateAPICollection = new EchangeRateAPICollection();
+
          Rate rate = new Rate("USD", "NGN");
-        exchangeRateAPICollection.execute(rate);
+        Rate rate1 = rate;
+
+        new ExchangeRateAPICollection().execute(rate, rate1, null);
+
+        String str =String.valueOf(rate.getExchangeRate());
+        Log.d("ACTIVITY", str);
 
 
     }

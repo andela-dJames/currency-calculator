@@ -9,11 +9,10 @@ import java.net.URL;
 /**
  * Created by Oluwatosin on 11/22/2015.
  */
-public class EchangeRateAPICollectionTest extends TestCase {
+public class ExchangeRateAPICollectionTest extends TestCase {
 
     public void testBuildUrl() throws Exception {
-        EchangeRateAPICollection<Rate>exchangeRateAPICollection = new EchangeRateAPICollection<Rate>();
-        URL url = exchangeRateAPICollection.buildUrl("NGN", "USD");
+
 
     }
 }

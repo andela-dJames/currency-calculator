@@ -1,13 +1,13 @@
 package com.andela.currency_calculator.models.dal;
 
-
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.andela.currency_calculator.Constants;
+import com.andela.currency_calculator.ContextProvider;
+import com.andela.currency_calculator.R;
 import com.andela.currency_calculator.models.Currency.Rate;
-import com.andela.currency_calculator.operations.ArithmeticOperator;
-import com.andela.currency_calculator.operations.Converter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,35 +15,33 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
-
-public class EchangeRateAPICollection extends AsyncTask<Rate, String, String> implements DataCollection<Rate> {
+public class ExchangeRateAPICollection extends AsyncTask<Rate, String, Rate>{
     private  String result;
-
+    private Rate rate;
+    private Context context;
 
     @Override
-    protected String doInBackground(Rate... params) {
+    protected Rate doInBackground(Rate... params) {
         try {
+
            result = fetchExchangeRate(params[0]);
+            Double d = Double.parseDouble(result);
+            params[0].setExchangeRate(d);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return params[0];
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        Rate rate = new Rate();
-        double f = Double.parseDouble(result);
-        rate.setExchangeRate(f);
-        Converter converter = new Converter(rate);
-        double print = converter.reverseConvert(100);
-        String str = String.valueOf(print);
-        Log.d("ACTIVITY", str);
-        ArithmeticOperator arithmeticOperator = new ArithmeticOperator();
-        double c = arithmeticOperator.minus(3, 4, (-10));
-        Log.d("ANOTHER_ACTIVITY", String.valueOf(c) );
+    protected void onPostExecute(Rate rate){
+
+      List<String> list = ContextProvider.getInstance().getCodes();
+
     }
 
     private  String separator = "/";
@@ -82,23 +80,4 @@ public class EchangeRateAPICollection extends AsyncTask<Rate, String, String> im
         return reader.readLine();
     }
 
-    @Override
-    public void save(Rate data, DataCallback callback) {
-
-    }
-
-    @Override
-    public void get(Rate rate, DataCallback<List<Rate>> callback) {
-
-    }
-
-    @Override
-    public void getAll(DataCollection<List<Rate>> callback) {
-
-    }
-
-    @Override
-    public void update(Rate data, DataCallback callback) {
-
-    }
 }
