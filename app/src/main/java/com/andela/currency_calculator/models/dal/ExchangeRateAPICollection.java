@@ -15,32 +15,38 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExchangeRateAPICollection extends AsyncTask<Rate, String, Rate>{
-    private  String result;
-    private Rate rate;
-    private Context context;
-
+public class ExchangeRateAPICollection extends AsyncTask<List<String>, String, List<Rate>>{
+    private List<Rate> rates;
     @Override
-    protected Rate doInBackground(Rate... params) {
-        try {
+    protected List<Rate> doInBackground(List<String>... params) {
+        int i,j = 0;
+        Rate rate;
+        rates = new ArrayList<Rate>();
+        for( i=0; i<params[0].size(); i++){
+            for( j= i+1; j <= (params[0].size()-1); j++ ){
 
-           result = fetchExchangeRate(params[0]);
-            Double d = Double.parseDouble(result);
-            params[0].setExchangeRate(d);
-        } catch (IOException e) {
-            e.printStackTrace();
+                rate = new Rate(params[0].get(i), params[0].get(j));
+                try {
+                    setExchangeRate(rate);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                rates.add(rate);
+            }
         }
-
-        return params[0];
+        return   rates;
     }
 
     @Override
-    protected void onPostExecute(Rate rate){
+    protected void onPostExecute(List<Rate> list){
+       for (Rate rate: list){
+           Log.d("BACKGROUND", rate.getBaseCurrency()+" :"+rate.getTargetCurrency());
+       }
 
-      List<String> list = ContextProvider.getInstance().getCodes();
 
     }
 
@@ -55,6 +61,12 @@ public class ExchangeRateAPICollection extends AsyncTask<Rate, String, Rate>{
         url = buildUrl(rate.getBaseCurrency(), rate.getTargetCurrency());
         connectToService(url);
        return exchangeRate(url);
+    }
+
+    public void setExchangeRate(Rate rate) throws IOException {
+        String ex = fetchExchangeRate(rate);
+        Double exrate = Double.parseDouble(ex);
+        rate.setExchangeRate(exrate);
     }
 
     public URL buildUrl(String...currencyParams) throws MalformedURLException {

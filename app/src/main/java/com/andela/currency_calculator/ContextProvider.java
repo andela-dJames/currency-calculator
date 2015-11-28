@@ -2,6 +2,8 @@ package com.andela.currency_calculator;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +14,10 @@ import java.util.List;
  */
 public class ContextProvider extends Application {
 
-    private static Context context;
     private static ContextProvider ourInstance;
     private List<String> codes;
+    private Resources resources;
+    private Context context;
 
     public static ContextProvider getInstance() {
         if (ourInstance == null){
@@ -23,20 +26,20 @@ public class ContextProvider extends Application {
         return ourInstance;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        context = this;
+    }
+
     private ContextProvider() {
-        context = getApplicationContext();
         codes = new ArrayList<String>();
     }
 
-    public Context getContext() {
-        return context;
-    }
+    public List<String> getCodes() {
 
-    public static void setContext(Context context) {
-        ContextProvider.context = context;
-    }
-    public List<String> getCodes(){
-        String[] strings = context.getResources().getStringArray(R.array.currency_code);
-       return codes = Arrays.asList(strings);
+        String[] list = context.getResources().getStringArray(R.array.currency_code);
+        codes = Arrays.asList(list);
+        return codes;
     }
 }

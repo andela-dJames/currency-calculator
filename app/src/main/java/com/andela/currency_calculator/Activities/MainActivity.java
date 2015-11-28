@@ -1,5 +1,6 @@
 package com.andela.currency_calculator.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,16 +10,26 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.andela.currency_calculator.ContextProvider;
 import com.andela.currency_calculator.R;
 import com.andela.currency_calculator.models.Currency.Rate;
 import com.andela.currency_calculator.models.dal.ExchangeRateAPICollection;
+import com.andela.currency_calculator.parcer.Parser;
+import com.andela.currency_calculator.parcer.expressionnodes.ExpressionNode;
+
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private URL url;
     private Spinner spinner;
     private String result;
+    private Parser parser;
+    private ExpressionNode expressionNode;
+    List<String> curr_codes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
          Rate rate = new Rate("USD", "NGN");
         Rate rate1 = rate;
-
-        new ExchangeRateAPICollection().execute(rate, rate1, null);
+        String[] array = getApplicationContext().getResources().getStringArray(R.array.currency_code);
+        curr_codes = Arrays.asList(array);
+        new ExchangeRateAPICollection().execute(curr_codes);
 
         String str =String.valueOf(rate.getExchangeRate());
-        Log.d("ACTIVITY", str);
+        parser = new Parser();
+
+//        String exprstr = "2*(1+4+(3))";
+//        ExpressionNode node = parser.parse(exprstr);
+//        Log.d("ACTIVITY", String.valueOf(node.getValue()));
+
+
 
 
     }

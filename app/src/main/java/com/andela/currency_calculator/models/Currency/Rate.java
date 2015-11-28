@@ -7,6 +7,7 @@ public class Rate {
     private String targetCurrency;
     private double exchangeRate;
 
+
     public Rate() {
     }
 
@@ -46,4 +47,5 @@ public class Rate {
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
+
 }
