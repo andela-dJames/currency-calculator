@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="currency_code">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>JPY</item>
         <item>ARS</item>
         <item>AUD</item>
         <item>BBD</item>
         <item>BDT</item>
         <item>BHD</item>
         <item>BSD</item>
-        <item>EUR</item>
+        <item>NGN</item>
         <item>XOF</item>
         <item>BRL</item>
         <item>BGN</item>
@@ -25,8 +29,6 @@
         <item>TND</item>
         <item>TRY</item>
         <item>AED</item>
-        <item>GBP</item>
-        <item>USD</item>
         <item>VEF</item>
         <item>VND</item>
         <item>ZMW</item>
@@ -51,9 +53,7 @@
         <item>IDR</item>
         <item>IRR</item>
         <item>ILS</item>
-        <item>EUR</item>
         <item>JMD</item>
-        <item>JPY</item>
         <item>JOD</item>
         <item>KES</item>
         <item>KRW</item>
@@ -65,7 +65,6 @@
         <item>MMK</item>
         <item>ANG</item>
         <item>NZD</item>
-        <item>NGN</item>
         <item>NOK</item>
         <item>OMR</item>
         <item>PKR</item>

@@ -5,7 +5,6 @@ import android.test.AndroidTestCase;
 
 import org.junit.Test;
 
-import java.util.Currency;
 import java.util.HashSet;
 
 
@@ -17,7 +16,7 @@ public class TestDB extends AndroidTestCase{
 
     @Override
     public void setUp() throws Exception {
-        //deleteDb();
+        deleteDb();
     }
 
     @Test
@@ -25,7 +24,7 @@ public class TestDB extends AndroidTestCase{
         final HashSet<String> tableNames = new HashSet<String>();
         tableNames.add(CurrencyConverterContract.ExchangeRates.TABLE_NAME);
         tableNames.add(CurrencyConverterContract.Currency.TABLE_NAME);
-
+        mContext.deleteDatabase(SqlLiteDataAccess.DATABASE_NAME);
         SQLiteDatabase db = new SqlLiteDataAccess(this.mContext).getWritableDatabase();
 
         assertEquals(true, db.isOpen());

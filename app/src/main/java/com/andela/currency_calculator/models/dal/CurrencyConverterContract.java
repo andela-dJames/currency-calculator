@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.format.Time;
 
 
 public final class CurrencyConverterContract {
@@ -17,21 +18,28 @@ public final class CurrencyConverterContract {
     private static final String TEXT_TYPE = "TEXT";
     private static final String SEPARATOR =  ", ";
 
-    public static final String CREATE_RATE_TABLE_QUERY = "CREATE TABLE IF NOT EXIST" +
+    public static final String CREATE_RATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS " +
             ExchangeRates.TABLE_NAME +
             "(" + ExchangeRates._ID +
-            " INTEGER PRIMARY KEY " +
-            SEPARATOR+
-            ExchangeRates.BASE_CURRENCY
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+             ExchangeRates.BASE_CURRENCY
             + " " + TEXT_TYPE + ", "+
             ExchangeRates.TARGET_CURRENCY + " "+
-            TEXT_TYPE + ", " + ExchangeRates.EXCHANGE_RATE + " );";
+            TEXT_TYPE + ", " + ExchangeRates.EXCHANGE_RATE +" REAL "+ " );";
 
-    public static final String CREATE_CURRENCY_TABLE_QUERY = "CREATE TABLE IF NOT EXIST "  +
+    public static final String CREATE_CURRENCY_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS "  +
             Currency.TABLE_NAME+
             " (" + Currency.COLUMN_CURRENCY_CODE +
             TEXT_TYPE + SEPARATOR+ Currency.COLUMN_COUNTRY_NAME +
-            TEXT_TYPE + SEPARATOR + Currency.COLUMN_CURRENCY_NAME + " );" ;
+            TEXT_TYPE + SEPARATOR + Currency.COLUMN_CURRENCY_NAME + TEXT_TYPE + " );" ;
+
+    public static long normalizeDate(long startDate) {
+        // normalize the start date to the beginning of the (UTC) day
+       Time time = new Time();
+        time.set(startDate);
+        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+        return time.setJulianDay(julianDay);
+    }
 
 
     public CurrencyConverterContract() {
@@ -68,9 +76,15 @@ public final class CurrencyConverterContract {
         public static final String EXCHANGE_RATE = "exchange_rate";
         public static final String TABLE_NAME = "rates";
 
-        public Uri buildRatesUri(long id) {
+        public static Uri buildRatesUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
+        public static Uri buildExchangeRateUri(String exchangeRate){
+            return CONTENT_URI.buildUpon().appendPath(exchangeRate).build();
+
+        }
+
     }
 
 

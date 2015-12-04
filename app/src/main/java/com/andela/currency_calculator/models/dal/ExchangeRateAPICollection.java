@@ -1,12 +1,12 @@
 package com.andela.currency_calculator.models.dal;
 
-import android.content.Context;
+import android.content.ContentProvider;
+import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.andela.currency_calculator.Constants;
 import com.andela.currency_calculator.ContextProvider;
-import com.andela.currency_calculator.R;
 import com.andela.currency_calculator.models.Currency.Rate;
 
 import java.io.BufferedReader;
@@ -16,36 +16,48 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ExchangeRateAPICollection extends AsyncTask<List<String>, String, List<Rate>>{
     private List<Rate> rates;
+    private ContentValues rateContents;
+    private ContentValues[] contentValues;
+    private ContentProvider provider;
     @Override
     protected List<Rate> doInBackground(List<String>... params) {
+        provider = new ExchangeRateProvider();
         int i,j = 0;
         Rate rate;
+        int count = 0;
+        contentValues = new ContentValues[count];
         rates = new ArrayList<Rate>();
         for( i=0; i<params[0].size(); i++){
             for( j= i+1; j <= (params[0].size()-1); j++ ){
 
                 rate = new Rate(params[0].get(i), params[0].get(j));
                 try {
-                    setExchangeRate(rate);
-                } catch (IOException e) {
+                    //setExchangeRate(rate);
+                    rateContents = new ContentValues();
+                    rateContents.put(CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, rate.getBaseCurrency());
+                    rateContents.put(CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY, rate.getTargetCurrency());
+                    rateContents.put(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE, rate.getExchangeRate());
+                    contentValues = increaseArraySize(contentValues, count);
+                    contentValues[count] = rateContents;
+                    count++;
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 rates.add(rate);
             }
         }
+        provider.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
         return   rates;
     }
 
     @Override
     protected void onPostExecute(List<Rate> list){
-       for (Rate rate: list){
-           Log.d("BACKGROUND", rate.getBaseCurrency()+" :"+rate.getTargetCurrency());
-       }
+       String str = String.valueOf(contentValues.length);
+        Log.d("THIS ACTIVITY", str);
 
 
     }
@@ -90,6 +102,16 @@ public class ExchangeRateAPICollection extends AsyncTask<List<String>, String, L
     public String exchangeRate(URL url) throws IOException {
         reader = new BufferedReader(new InputStreamReader(url.openStream()));
         return reader.readLine();
+    }
+
+    private ContentValues[] increaseArraySize(ContentValues[] values, int count) {
+
+        if (values.length == count){
+            ContentValues[] items = new ContentValues[values.length + 50];
+            System.arraycopy(values,0, items, 0, values.length);
+            values = items;
+        }
+        return values;
     }
 
 }

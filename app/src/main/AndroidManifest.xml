@@ -20,16 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CurrencyCalculatorActivity"
-            android:label="@string/title_activity_currency_calculator"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <provider
+            android:authorities="com.andela.currency_calculator"
+            android:name=".models.dal.ExchangeRateProvider"/>
     </application>
 
 </manifest>

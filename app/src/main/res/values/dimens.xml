@@ -4,4 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="bottom_margin">5dp</dimen>
+    <dimen name="calculator_screen_height">180dp</dimen>
+    <dimen name="expression_screen_height">80dp</dimen>
+    <dimen name="result_screen_text_size">26sp</dimen>
+    <dimen name="screen_padding">10dp</dimen>
+    <dimen name="expresion_screen_text_size">30sp</dimen>
+    <dimen name="keyboard_text_size">40sp</dimen>
 </resources>
