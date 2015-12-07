@@ -1,7 +1,9 @@
 package com.andela.currency_calculator.Activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,64 +15,86 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.Iterator;
+
+import java.util.Stack;
 
 import com.andela.currency_calculator.R;
+import com.andela.currency_calculator.models.Currency.Observer;
 import com.andela.currency_calculator.models.Currency.Rate;
 import com.andela.currency_calculator.models.dal.ExchangeRateAPICollection;
+import com.andela.currency_calculator.models.dal.SqlLiteDataAccess;
+import com.andela.currency_calculator.parcer.Converter;
 import com.andela.currency_calculator.parcer.Parser;
 import com.andela.currency_calculator.parcer.exception.EvaluationException;
 import com.andela.currency_calculator.parcer.exception.ParserException;
 import com.andela.currency_calculator.parcer.expressionnodes.ExpressionNode;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "Main Activity" ;
+
+    private static final String TAG = "Main Activity";
+
+    private Observer observer;
+
     private Spinner baseSpinner;
+
     private Spinner targetSpinner;
-    private List<String> curr_codes;
+
     private boolean resetInput, hasfinalResult, hasOperator, hasOperand = false;
-    private TextView buttonZero, button_1, button_2,button_3,button_4,
+
+    private TextView buttonZero, button_1, button_2, button_3, button_4,
             button_5, button_6, button_7, button_8, button_9, buttonDelete,
             buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator;
+
     private TextView expressionText;
     private TextView resultText;
     private RelativeLayout parentView;
+
     private Stack<String> inputBuffer;
     private Stack<String> operationBuffer;
     private Rate rate;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ON CREATE", "what happens");
+
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         rate = new Rate();
+        observer = new Observer(rate);
+
         parentView = (RelativeLayout) findViewById(R.id.parent_view);
 
-        initializeBaseSpinner();
-        intializeTargetSpinner();
-        String[] array = getApplicationContext().getResources().getStringArray(R.array.currency_code);
-        curr_codes = Arrays.asList(array);
+
         initializeComponents();
+        initializeBaseSpinner();
+
+        intializeTargetSpinner();
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
-        ExchangeRateAPICollection collection = new ExchangeRateAPICollection();
-        collection.execute(curr_codes);
+//        ExchangeRateAPICollection collection = new ExchangeRateAPICollection();
+//        collection.execute(getApplicationContext());
+        rate = fetch(rate);
 
     }
 
-    public void initializeComponents(){
+    public Rate fetch(Rate rate) {
+
+        SqlLiteDataAccess sqlLiteDataAccess = new SqlLiteDataAccess(getApplicationContext());
+       double ex =  sqlLiteDataAccess.get(rate.getBaseCurrency(), rate.getTargetCurrency());
+        rate.setExchangeRate(ex);
+        return rate;
+
+    }
+
+    public void initializeComponents() {
+
         expressionText = (TextView) findViewById(R.id.expression_screen);
         resultText = (TextView) findViewById(R.id.evaluation_screen);
         buttonZero = (TextView) findViewById(R.id.key_zero);
@@ -87,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         buttonDelete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-               clearStacks();
+                clearStacks();
                 return false;
             }
         });
@@ -99,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
         buttonEvaluator = (TextView) findViewById(R.id.key_equal);
     }
 
-    public String getKeyString(View v){
-        switch (v.getId()){
+    public String getKeyString(View v) {
+        switch (v.getId()) {
             case R.id.key_zero:
                 return buttonZero.getText().toString();
 
@@ -155,19 +179,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initializeBaseSpinner() {
+
         baseSpinner = (Spinner) findViewById(R.id.base_curry);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.currency_code, android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.currency_code, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         baseSpinner.setAdapter(adapter);
+
+        rate.setBaseCurrency((String) adapter.getItem(0));
+
         baseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String) parent.getSelectedItem().toString();
-//                Toast.makeText(parent.getContext(),
-//                        "On Item Select : \n" + item,
-//                        Toast.LENGTH_LONG).show();
                 rate.setBaseCurrency(item);
-                showRate();
+                rate = fetch(rate);
 
             }
 
@@ -177,19 +206,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void showRate() {
-        resultText.setText(rate.getBaseCurrency());
-    }
+
     public void intializeTargetSpinner() {
-         targetSpinner = (Spinner) findViewById(R.id.target_currency_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.currency_code, android.R.layout.simple_spinner_item);
+
+        targetSpinner = (Spinner) findViewById(R.id.target_currency_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.currency_code, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         targetSpinner.setAdapter(adapter);
+
+        rate.setTargetCurrency(((String) adapter.getItem(0)));
+
         targetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String item = (String) parent.getSelectedItem().toString();
+
                 rate.setTargetCurrency(item);
+               rate =  fetch(rate);
+
             }
 
             @Override
@@ -198,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override
@@ -206,93 +244,66 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     public void onKeyPressed(View v) {
         String currentInput = getKeyString(v);
         String screenText = expressionText.getText().toString();
         String viewText = resultText.getText().toString();
 
-        if (currentInput.equals("DEL")){
-            int endindex = screenText.length()-1;
+        if (currentInput.equals("DEL")) {
+            int endindex = screenText.length() - 1;
             int index = resultText.length() - 1;
-            if(endindex < 1 ){
+            if (endindex < 1) {
                 expressionText.setText("");
 
             }
-            if(index < 1){
+            if (index < 1) {
                 resultText.setText("");
-            }
-            else {
+            } else {
                 expressionText.setText(screenText.subSequence(0, endindex));
                 resultText.setText(screenText.subSequence(0, index));
             }
-        }
-        else if (currentInput.equals(".")){
-           if (hasfinalResult || resetInput){
-               expressionText.setText(0+".");
-               hasfinalResult = false;
-               resetInput = false;
-           }
-            else if (screenText.contains(".")){
-               return;
-
-           }
-            else {
-               expressionText.append(".");
-           }
-        }
-        else if (currentInput.equals("+") || currentInput.equals("-") || currentInput.equals("/") || currentInput.equals("*"))
-        {
-            if (resetInput){
+        } else if (currentInput.equals(".")) {
+            if (hasfinalResult || resetInput) {
+                expressionText.setText(0 + ".");
+                hasfinalResult = false;
+                resetInput = false;
+            } else if (screenText.contains(".")) {
                 return;
+
+            } else {
+                expressionText.append(".");
             }
-            else {
-                if (hasOperator){
+        } else if (currentInput.equals("+") || currentInput.equals("-") || currentInput.equals("/") || currentInput.equals("*")) {
+            if (resetInput) {
+                return;
+            } else {
+                if (hasOperator) {
                     return;
-                }
-                else if (hasOperand){
+                } else if (hasOperand) {
                     expressionText.append(currentInput);
                     hasOperator = true;
                 }
             }
-//           if (resetInput){
-//               inputBuffer.pop();
-//               operationBuffer.pop();
-//
-//           }
-//            else { if (currentInput.charAt(0) == '-'){
-//               inputBuffer.add("(" + screenText + ")");
-//                }
-//               else {
-//               inputBuffer.add(screenText);
-//                }
-//               operationBuffer.add(screenText);
-//           }
-//            inputBuffer.add(currentInput);
-//            operationBuffer.add(currentInput);
-//
-//            Log.d(TAG, String.valueOf(resetInput));
-//                resetInput = true;
-        }
-        else if (currentInput.equals("="))
-        {if (hasfinalResult) {
+        } else if (currentInput.equals("=")) {
+            if (hasfinalResult) {
 
-            Log.d(TAG, resultText.getText().toString());
-            String i = String.valueOf(evaluate(expressionText.getText().toString()));
+                Log.d(TAG, resultText.getText().toString());
+                String i = String.valueOf(evaluate(expressionText.getText().toString()));
 
-            resultText.setText(i.toString());
-        }
-            else {
-            return;
-        }
-        }
-        else {
+                resultText.setText(i.toString() + " "+ rate.getTargetCurrency());
+            } else {
+                return;
+            }
+        } else {
             expressionText.append(currentInput);
             hasfinalResult = true;
             hasOperand = true;
             hasOperator = false;
         }
     }
-    public void dumpInput(){
+
+    public void dumpInput() {
         expressionText.setText("");
         Iterator<String> it = inputBuffer.iterator();
         StringBuilder sb = new StringBuilder();
@@ -305,30 +316,53 @@ public class MainActivity extends AppCompatActivity {
 
         resultText.setText(sb.toString());
     }
-    public double evaluate(String expression){
+
+    public double evaluate(String expression) {
+
         Parser parser = new Parser();
-        double d = 0.0;
+
+        double d = 0.00000;
+
         try {
+
             ExpressionNode expressionNode = parser.parse(expression);
+
             d = expressionNode.getValue();
-            Log.d(TAG, String.valueOf(d));
-        }
-        catch (ParserException e){
+
+        } catch (ParserException e) {
+
+            Log.d(TAG, e.getMessage());
+        } catch (EvaluationException e) {
+
             Log.d(TAG, e.getMessage());
         }
-        catch (EvaluationException e){
-            Log.d(TAG, e.getMessage());
-        }
-        return d;
+        return convert(d);
+    }
+    public double convert(double val) {
+
+        double exRate = rate.getExchangeRate();
+        Log.d(TAG, String.valueOf(rate.getExchangeRate()));
+        return exRate * val;
+
     }
 
     public void clearStacks() {
+
         expressionText.setText("");
+
         resultText.setText("");
+
         inputBuffer.clear();
+
         operationBuffer.clear();
+
         hasOperand = false;
+
         hasOperator = false;
+    }
+    public double retrieveData(Rate rate) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return (double) sharedPreferences.getFloat(rate.getExchangeRate() + "-"+ rate.getTargetCurrency(), 0f);
     }
 
     @Override
@@ -345,30 +379,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("ON STOP", "what happens");
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("ON DESTROY", "what happens");
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("ON PAUSE", "what happens");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("ON RESUME", "what happens");
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("ON START", "what happens");
     }
 }

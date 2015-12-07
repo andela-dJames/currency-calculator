@@ -5,31 +5,29 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 /**
- * Created by Oluwatosin on 11/25/2015.
+ * A Content provider class intended for use in the next release version
  */
 public class ExchangeRateProvider extends ContentProvider {
-
+    /**
+     *  an SqliteDataAccess
+     */
     private SqlLiteDataAccess sqlLiteDataAccess;
-    private UriMatcher uriMatcher = buildUriMatcher();
+
 
     private UriMatcher buildUriMatcher() {
         return null;
     }
 
-    public ExchangeRateProvider() {
-        sqlLiteDataAccess = new SqlLiteDataAccess(getContext());
-        Log.d("Proider", "onCretae was caled ");
-    }
 
     @Override
     public boolean onCreate() {
         sqlLiteDataAccess = new SqlLiteDataAccess(getContext());
-        Log.d("Proider", "onCretae was caled ");
+
         return true;
 
     }
@@ -59,6 +57,7 @@ public class ExchangeRateProvider extends ContentProvider {
 
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
+
         final SQLiteDatabase db = sqlLiteDataAccess.getWritableDatabase();
         db.beginTransaction();
         int count = 0;

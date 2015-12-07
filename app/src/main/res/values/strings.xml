@@ -19,5 +19,7 @@
     <string name="divide">/</string>
     <string name="multiply">*</string>
     <string name="decimal_separator">.</string>
+    <string name="rates_file_key" />
+    <string name="base_target">rate.getExchangeRate() + \"-\"+ rate.getTargetCurrency()</string>
 
 </resources>

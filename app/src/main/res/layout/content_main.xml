@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:divider="@drawable/divider"
-                    android:showDividers="middle">>
+                    android:showDividers="middle">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -313,13 +313,14 @@
                 android:layout_gravity="center_horizontal"
                 style="@style/text_color"
                 android:singleLine="true"
-                android:textDirection="rtl"
+                android:textDirection="ltr"
                 android:textSize="@dimen/expresion_screen_text_size"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/expression_scroll_view">
+                android:id="@+id/expression_scroll_view"
+                android:fillViewport="false">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

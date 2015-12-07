@@ -1,8 +1,20 @@
 package com.andela.currency_calculator.models.Currency;
 
+/**
+ * Represents a currency
+ */
 public class CurrencyEx {
+    /**
+     * The code of the currency, eg. NGN, USD, GBP
+     */
     private String currencyCode;
+    /**
+     * THE name of the currency
+     */
     private String currencyName;
+    /**
+     * The country that owns thw currency
+     */
     private String country;
 
     public CurrencyEx() {

@@ -18,13 +18,13 @@
             android:orientation="horizontal"
             style="@style/text_color">
             <Spinner
-                android:id="@+id/target_currency_spinner"
+                android:id="@+id/base_curry"
                 android:layout_width="172dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="left"
                 ></Spinner>
             <Spinner
-                android:id="@+id/base_curry"
+                android:id="@+id/target_currency_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="end"></Spinner>

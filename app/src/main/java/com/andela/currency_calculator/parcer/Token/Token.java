@@ -1,7 +1,7 @@
 package com.andela.currency_calculator.parcer.Token;
 
 /**
- * Created by Oluwatosin on 11/27/2015.
+ * Represents a token
  */
 public class Token {
     /** Token id for the epsilon terminal */
