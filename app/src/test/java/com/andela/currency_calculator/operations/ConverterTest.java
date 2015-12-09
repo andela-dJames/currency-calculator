@@ -3,23 +3,19 @@ package com.andela.currency_calculator.operations;
 import android.test.AndroidTestCase;
 
 import com.andela.currency_calculator.models.Currency.Rate;
-import com.andela.currency_calculator.models.dal.ExchangeRateAPICollection;
-
-import junit.framework.TestCase;
-
-import java.text.DecimalFormat;
+import com.andela.currency_calculator.models.dal.FetchTask;
 
 /**
  * Created by Oluwatosin on 11/26/2015.
  */
 public class ConverterTest extends AndroidTestCase {
     Rate rate = new Rate("NGN", "USD");
-    ExchangeRateAPICollection exchangeRateAPICollection = new ExchangeRateAPICollection();
+    FetchTask fetchTask = new FetchTask();
 
 
 //    @Override
 //    public void setUp() throws Exception {
-//        exchangeRateAPICollection.execute(rate);
+//        fetchTask.execute(rate);
 //        System.out.print(rate.getExchangeRate());
 //
 //    }

@@ -23,9 +23,8 @@ import java.util.Stack;
 import com.andela.currency_calculator.R;
 import com.andela.currency_calculator.models.Currency.Observer;
 import com.andela.currency_calculator.models.Currency.Rate;
-import com.andela.currency_calculator.models.dal.ExchangeRateAPICollection;
+import com.andela.currency_calculator.models.dal.FetchTask;
 import com.andela.currency_calculator.models.dal.SqlLiteDataAccess;
-import com.andela.currency_calculator.parcer.Converter;
 import com.andela.currency_calculator.parcer.Parser;
 import com.andela.currency_calculator.parcer.exception.EvaluationException;
 import com.andela.currency_calculator.parcer.exception.ParserException;
@@ -89,14 +88,8 @@ public class MainActivity extends AppCompatActivity {
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
 
-//        if (!beenDone(Once.THIS_APP_INSTALL, installDB)){
-//            runDB(getApplicationContext());
-//            markDone(installDB);
-//           boolean done = beenDone(installDB);
-//            Log.d(TAG, String.valueOf(done));
-//        }
         if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
-            runDB(getApplicationContext());
+            runInBackground(getApplicationContext());
             Log.d(TAG, "this has been done");
             markDone(installDB);}
 
@@ -421,8 +414,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public void runDB(Context context){
-        ExchangeRateAPICollection exchangeRateAPICollection = new ExchangeRateAPICollection();
-        exchangeRateAPICollection.execute(context);
+    public void runInBackground(Context context){
+        FetchTask fetchTask = new FetchTask();
+        fetchTask.execute(context);
     }
 }

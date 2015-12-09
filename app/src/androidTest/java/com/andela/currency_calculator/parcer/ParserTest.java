@@ -5,7 +5,9 @@ import com.andela.currency_calculator.parcer.expressionnodes.SetVariable;
 
 import junit.framework.TestCase;
 
-
+/**
+ * Created by Oluwatosin on 12/9/2015.
+ */
 public class ParserTest extends TestCase {
     String exprstr = "2*(1+sin(pi/2))^2";
     Parser parser = new Parser();
@@ -17,7 +19,5 @@ public class ParserTest extends TestCase {
         assertEquals(expr.getValue(), 8.0);
     }
 
-    public void testParse1() throws Exception {
 
-    }
 }

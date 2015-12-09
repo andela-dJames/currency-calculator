@@ -143,12 +143,12 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
      * @param selection
      * @param selectionArgs
      */
-    public void update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
         database = getWritableDatabase();
-        int rowUpdated;
-        rowUpdated = database.update(CurrencyConverterContract.ExchangeRates.TABLE_NAME, values, selection,
+      int rowUpdated = database.update(CurrencyConverterContract.ExchangeRates.TABLE_NAME, values, selection,
                 selectionArgs);
 
+    return rowUpdated;
     }
 
 }
