@@ -1,6 +1,5 @@
 package com.andela.currency_calculator.models.dal;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,6 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import jonathanfinerty.once.Once;
 
 /**
  * A class for carrying out ASYNc Task in the background
@@ -68,13 +69,14 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
      */
     @Override
     protected List<Rate> doInBackground(Context... params) {
+
+
         List<String> curr_codes = new ArrayList();
         String[] array = params[0].getResources().getStringArray(R.array.currency_code);
         curr_codes = Arrays.asList(array);
         access = new SqlLiteDataAccess(params[0]);
-        int i,j = 0;
+        int i,j, count = 0;
         Rate rate;
-        int count = 0;
         contentValues = new ContentValues[count];
         rates = new ArrayList<Rate>();
         for( i=0; i<curr_codes.size(); i++){
@@ -115,9 +117,9 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
     @Override
     protected void onPostExecute(List<Rate> list){
 
-       for (Rate rate : list){
-           Log.d(TAG, rate.getBaseCurrency() + " : " + rate.getTargetCurrency() + ": "+String.valueOf(rate.getExchangeRate()));
-       }
+//       for (Rate rate : list){
+//           Log.d(TAG, rate.getBaseCurrency() + " : " + rate.getTargetCurrency() + ": "+String.valueOf(rate.getExchangeRate()));
+//       }
 
     }
 
@@ -127,7 +129,7 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
      * @return
      * @throws IOException
      */
-    public String fetchExchangeRate(Rate rate) throws IOException {
+    private String fetchExchangeRate(Rate rate) throws IOException {
         url = buildUrl(rate.getBaseCurrency(), rate.getTargetCurrency());
         connectToService(url);
        return exchangeRate(url);
@@ -139,7 +141,7 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
      * @return
      * @throws MalformedURLException
      */
-    public URL buildUrl(String...currencyParams) throws MalformedURLException {
+    private URL buildUrl(String...currencyParams) throws MalformedURLException {
        StringBuilder uri  = new StringBuilder();
         uri.append(Constants.API_URl)
                 .append(currencyParams[0])
@@ -155,7 +157,7 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
      * @param url
      * @throws IOException
      */
-    public void connectToService(URL url) throws IOException {
+    private void connectToService(URL url) throws IOException {
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(Constants.REQUEST_METHOD);
         connection.connect();
@@ -168,7 +170,7 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
      * @return
      * @throws IOException
      */
-    public String exchangeRate(URL url) throws IOException {
+    private String exchangeRate(URL url) throws IOException {
 
         reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -194,16 +196,20 @@ public class ExchangeRateAPICollection extends AsyncTask<Context, String, List<R
         return values;
     }
 
-    public void saveSharedData(Context context, Rate rate) {
+    private void saveSharedData(Context context, Rate rate) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putFloat(rate.getExchangeRate() + "-"+ rate.getTargetCurrency(), (float) rate.getExchangeRate());
         editor.commit();
-//        SharedPreferences sharedPreferences =
-//                context.getSharedPreferences(context.getString(R.string.rates_file_key), Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putFloat(rate.getExchangeRate() + "-"+ rate.getTargetCurrency(), (float)rate.getExchangeRate());
+    }
+
+    public class  background extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
     }
 
 }

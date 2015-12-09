@@ -36,7 +36,6 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CurrencyConverterContract.CREATE_RATE_TABLE_QUERY);
-        db.execSQL(CurrencyConverterContract.CREATE_CURRENCY_TABLE_QUERY);
 
     }
 
@@ -91,8 +90,8 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
         Cursor c = database.rawQuery("SELECT " +
                 CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE + " FROM " +
                 CurrencyConverterContract.ExchangeRates.TABLE_NAME +
-        " WHERE " + CurrencyConverterContract.ExchangeRates.BASE_CURRENCY + " = " + "'" + base + "'" + " AND " +
-        CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY  + " = " + "'" + target +"'" + " ;", null);
+                " WHERE " + CurrencyConverterContract.ExchangeRates.BASE_CURRENCY + " = " + "'" + base + "'" + " AND " +
+                CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY + " = " + "'" + target + "'" + " ;", null);
 
        while ( c.moveToNext()) {
            exRate = (c.getDouble(c.getColumnIndex(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE)));
@@ -100,32 +99,13 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
        }
         return exRate;
     }
-    public double reget(String base, String target) {
-        double ex = 0;
-        String[] columns = { CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY,
-        CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE};
-        String selection = CurrencyConverterContract.ExchangeRates.BASE_CURRENCY + " = ? AND " +
-                CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY +" = ? ";
-        String[] selectionArgs = { target, base };
-        String sortOrder = CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE;
 
-        Cursor cursor = database.query(CurrencyConverterContract.ExchangeRates.TABLE_NAME, columns, selection, selectionArgs, null, null, sortOrder);
-
-        while (cursor.moveToNext()) {
-//            Rate rate = new Rate(cursor.getString(RateColumns.FROM_INDEX),
-//                    cursor.getString(RateColumns.TO_INDEX),
-//                    cursor.getDouble(RateColumns.VALUE_INDEX),
-//                    DateTime.parse(cursor.getString(RateColumns.LAST_UPDATED_AT_INDEX)));
-            ex = cursor.getDouble(cursor.getColumnIndex(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE));
-
-
-        }
-
-        cursor.close();
-
-        return ex;
-    }
-
+    /**
+     * fetches data fron the database
+     * @param base
+     * @param target
+     * @return
+     */
     public double get(String base, String target) {
         double ex = 0;
         String[] columns = { CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY,
@@ -138,10 +118,6 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
         Cursor cursor = database.query(CurrencyConverterContract.ExchangeRates.TABLE_NAME, columns, selection, selectionArgs, null, null, sortOrder);
 
         while (cursor.moveToNext()) {
-//            Rate rate = new Rate(cursor.getString(RateColumns.FROM_INDEX),
-//                    cursor.getString(RateColumns.TO_INDEX),
-//                    cursor.getDouble(RateColumns.VALUE_INDEX),
-//                    DateTime.parse(cursor.getString(RateColumns.LAST_UPDATED_AT_INDEX)));
             ex = cursor.getDouble(cursor.getColumnIndex(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE));
 
 
@@ -151,27 +127,27 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
 
         return ex;
     }
+
     /**
-     * A method for doing reverse query if the table does not contain exchange rates for a given combinaton
-     * of currency
-     * @param
+     * drops a table from the database
+     * @param tableName
      */
-    public double reverseQuery(String base, String target){
-        database = getReadableDatabase();
-        double exRate = 0;
-        Cursor c = database.rawQuery("SELECT " +
-                CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE + " FROM " +
-                CurrencyConverterContract.ExchangeRates.TABLE_NAME +
-                " WHERE " + CurrencyConverterContract.ExchangeRates.BASE_CURRENCY + " = " + "'" + target + "'" + " AND " +
-                CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY  + " = " + "'" + base +"'" + " ;", null);
+    public void dropTable( String tableName) {
+        database.execSQL("DROP TABLE IF EXISTS " + tableName);
+    }
 
-        while ( c.moveToNext()) {
-            exRate = (c.getDouble(c.getColumnIndex(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE)));
-        }
-
-        return 1.0000/exRate;
-
-
+    /**
+     * Updates an existing table
+     * @param uri the Uri of the table
+     * @param values the values to be inserted
+     * @param selection
+     * @param selectionArgs
+     */
+    public void update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+        database = getWritableDatabase();
+        int rowUpdated;
+        rowUpdated = database.update(CurrencyConverterContract.ExchangeRates.TABLE_NAME, values, selection,
+                selectionArgs);
 
     }
 

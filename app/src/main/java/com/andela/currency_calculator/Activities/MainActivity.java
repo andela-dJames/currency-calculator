@@ -31,10 +31,20 @@ import com.andela.currency_calculator.parcer.exception.EvaluationException;
 import com.andela.currency_calculator.parcer.exception.ParserException;
 import com.andela.currency_calculator.parcer.expressionnodes.ExpressionNode;
 
+import jonathanfinerty.once.Once;
+
+import static jonathanfinerty.once.Once.beenDone;
+import static jonathanfinerty.once.Once.markDone;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main Activity";
+
+    private String installDB = "INSTALL DATABASE";
+
+    private String updateDB = "UPDATE DATABASE";
+
 
     private Observer observer;
 
@@ -71,15 +81,25 @@ public class MainActivity extends AppCompatActivity {
 
         parentView = (RelativeLayout) findViewById(R.id.parent_view);
 
-
+        Once.initialise(this);
         initializeComponents();
         initializeBaseSpinner();
 
         intializeTargetSpinner();
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
-//        ExchangeRateAPICollection collection = new ExchangeRateAPICollection();
-//        collection.execute(getApplicationContext());
+
+//        if (!beenDone(Once.THIS_APP_INSTALL, installDB)){
+//            runDB(getApplicationContext());
+//            markDone(installDB);
+//           boolean done = beenDone(installDB);
+//            Log.d(TAG, String.valueOf(done));
+//        }
+        if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
+            runDB(getApplicationContext());
+            Log.d(TAG, "this has been done");
+            markDone(installDB);}
+
         rate = fetch(rate);
 
     }
@@ -252,16 +272,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentInput.equals("DEL")) {
             int endindex = screenText.length() - 1;
-            int index = resultText.length() - 1;
             if (endindex < 1) {
                 expressionText.setText("");
 
             }
-            if (index < 1) {
-                resultText.setText("");
-            } else {
+             else {
                 expressionText.setText(screenText.subSequence(0, endindex));
-                resultText.setText(screenText.subSequence(0, index));
+
             }
         } else if (currentInput.equals(".")) {
             if (hasfinalResult || resetInput) {
@@ -402,5 +419,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public void runDB(Context context){
+        ExchangeRateAPICollection exchangeRateAPICollection = new ExchangeRateAPICollection();
+        exchangeRateAPICollection.execute(context);
     }
 }
