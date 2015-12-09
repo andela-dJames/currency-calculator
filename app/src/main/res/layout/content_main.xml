@@ -21,18 +21,18 @@
         tools:showIn="@layout/activity_main" tools:context=".MainActivity">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="303dp"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="406dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
             <TableLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:stretchColumns="3"
-                android:layout_gravity="start"
+                android:stretchColumns="4"
+                android:layout_gravity="center|start"
                 android:divider="@drawable/divider"
                 android:showDividers="middle"
-                android:layout_weight="0.84">
+                android:layout_weight="1.05">
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -73,6 +73,19 @@
                         android:text="@string/nine"
                         android:textStyle="bold"
                         android:onClick="onKeyPressed" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/key_clear"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        style="@style/keypadStyle"
+                        android:text="@string/clear"
+                        android:textStyle="bold"
+                        android:onClick="onKeyPressed"
+                        android:contextClickable="false"
+                        android:longClickable="true" />
                 </TableRow>
                 <TableRow  android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -111,6 +124,17 @@
                         android:layout_weight="1"
                         style="@style/keypadStyle"
                         android:text="@string/six"
+                        android:textStyle="bold"
+                        android:onClick="onKeyPressed" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/key_divide"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        style="@style/keypadStyleOperator"
+                        android:text="@string/divide"
                         android:textStyle="bold"
                         android:onClick="onKeyPressed" />
                 </TableRow>
@@ -153,13 +177,32 @@
                         android:text="@string/three"
                         android:textStyle="bold"
                         android:onClick="onKeyPressed" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/key_multiply"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        style="@style/keypadStyleOperator"
+                        android:text="@string/multiply"
+                        android:textStyle="bold"
+                        android:onClick="onKeyPressed" />
                 </TableRow>
-                <TableRow  android:layout_width="match_parent"
+
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="5"
+                android:divider="@drawable/divider"
+                android:showDividers="middle"
+                android:layout_weight="0.84">
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:divider="@drawable/divider"
-                    android:showDividers="middle">
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -193,94 +236,6 @@
                         android:text="@string/evaluate"
                         android:textStyle="bold"
                         android:onClick="onKeyPressed" />
-                </TableRow>
-            </TableLayout>
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="326dp"
-                android:stretchColumns="1"
-                android:layout_gravity="end"
-                android:elevation="4dp"
-                android:layout_weight="0.15"
-                android:showDividers="end"
-                android:divider="@drawable/divider"
-                android:background="#607D8B">
-                <TableRow  android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:showDividers="end"
-                    android:divider="@drawable/divider">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/key_clear"
-                        android:layout_column="0"
-                        android:layout_weight="1"
-                        style="@style/keypadStyleOperator"
-                        android:text="@string/clear"
-                        android:textStyle="bold"
-                        android:onClick="onKeyPressed"
-                        android:contextClickable="false"
-                        android:longClickable="true" />
-
-                </TableRow>
-                <TableRow  android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/key_divide"
-                        android:layout_column="0"
-                        android:layout_weight="1"
-                        style="@style/keypadStyleOperator"
-                        android:text="@string/divide"
-                        android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
-                </TableRow>
-                <TableRow  android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/key_multiply"
-                        android:layout_column="0"
-                        android:layout_weight="1"
-                        style="@style/keypadStyleOperator"
-                        android:text="@string/multiply"
-                        android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
-                </TableRow>
-                <TableRow  android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/key_subtraction"
-                        android:layout_column="0"
-                        android:layout_weight="1"
-                        style="@style/keypadStyleOperator"
-                        android:text="@string/minus"
-                        android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
-                </TableRow>
-                <TableRow  android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/activity_horizontal_margin"
-                    android:orientation="horizontal"
-                    android:divider="@drawable/divider"
-                    android:showDividers="middle">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -292,9 +247,26 @@
                         android:text="@string/plus"
                         android:textStyle="bold"
                         android:onClick="onKeyPressed" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/key_subtraction"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        style="@style/keypadStyleOperator"
+                        android:text="@string/minus"
+                        android:textStyle="bold"
+                        android:onClick="onKeyPressed" />
+
+
                 </TableRow>
+
             </TableLayout>
+
+
         </LinearLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
