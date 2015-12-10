@@ -104,7 +104,48 @@ public class ActivityTests {
     public void testBaseSpinnerItemSelected() {
         onView(withId(R.id.base_curry));
         onData(allOf(is(instanceOf(String.class)), is(USD))).perform(click());
-        onView(withId(R.id.base_curry)).check(matches(withText(containsString(USD))));
+        onView(withId(R.id.base_curry_display)).check(matches(withText(containsString(USD))));
     }
+
+    @Test
+    public void testClickminusOperatorDoesNothingWithoutAnOperand() {
+        onView(withId(R.id.key_subtraction)).perform(click());
+        onView(withId(R.id.expression_screen)).check(matches(withText(containsString(""))));
+    }
+
+    @Test
+    public void testClickdivisionOperatorDoesNothingWithoutAnOperand() {
+        onView(withId(R.id.key_divide)).perform(click());
+        onView(withId(R.id.expression_screen)).check(matches(withText(containsString(""))));
+    }
+
+    @Test
+    public void testClickMultiplicationOperatorDoesNothingWithoutAnOperand() {
+        onView(withId(R.id.key_multiply)).perform(click());
+        onView(withId(R.id.expression_screen)).check(matches(withText(containsString(""))));
+    }
+
+    @Test
+    public void testClickEqualityOperatorDoesNothingWithoutAnOperand() {
+        onView(withId(R.id.key_equal)).perform(click());
+        onView(withId(R.id.expression_screen)).check(matches(withText(containsString(""))));
+    }
+
+    @Test
+    public void testClickPlusOperatorAddsAnOperand() {
+        onView(withId(R.id.key_one)).perform(click());
+        onView(withId(R.id.key_addition)).perform(click());
+        onView(withId(R.id.key_two)).perform(click());
+        onView(withId(R.id.evaluation_screen)).check(matches(withText(containsString("3"))));
+    }
+    @Test
+    public void testClickminusOperatorSubtractsAnOperand() {
+        onView(withId(R.id.key_one)).perform(click());
+        onView(withId(R.id.key_subtraction)).perform(click());
+        onView(withId(R.id.key_two)).perform(click());
+        onView(withId(R.id.evaluation_screen)).check(matches(withText("-1.0 ")));
+    }
+
+
 
 }
