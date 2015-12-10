@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -55,11 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView buttonZero, button_1, button_2, button_3, button_4,
             button_5, button_6, button_7, button_8, button_9, buttonDelete,
-            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator;
+            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator,
+            buttonOpenBrace, buttonCloseBrace, buttonClear, targetCurrency, baseCurrency;
 
     private TextView expressionText;
     private TextView resultText;
-    private RelativeLayout parentView;
+    private LinearLayout parentView;
 
     private Stack<String> inputBuffer;
     private Stack<String> operationBuffer;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         rate = new Rate();
         observer = new Observer(rate);
 
-        parentView = (RelativeLayout) findViewById(R.id.parent_view);
+        parentView = (LinearLayout) findViewById(R.id.parent_view);
 
         Once.initialise(this);
         initializeComponents();
@@ -110,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
         expressionText = (TextView) findViewById(R.id.expression_screen);
         resultText = (TextView) findViewById(R.id.evaluation_screen);
+        baseCurrency = (TextView) findViewById(R.id.base_curry_display);
+        targetCurrency = (TextView) findViewById(R.id.target_curry_display);
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
         button_2 = (TextView) findViewById(R.id.key_two);
@@ -120,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
         button_7 = (TextView) findViewById(R.id.key_seven);
         button_8 = (TextView) findViewById(R.id.key_eight);
         button_9 = (TextView) findViewById(R.id.key_nine);
-        buttonDelete = (TextView) findViewById(R.id.key_clear);
+        buttonClear = (TextView) findViewById(R.id.key_clear);
+        buttonDelete = (TextView) findViewById(R.id.key_delete);
         buttonDelete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -128,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        buttonOpenBrace = (TextView) findViewById(R.id.key_openbrace);
+        buttonCloseBrace = (TextView) findViewById(R.id.key_closebrace);
         buttonDivision = (TextView) findViewById(R.id.key_divide);
         buttonMultiply = (TextView) findViewById(R.id.key_multiply);
         buttonMinus = (TextView) findViewById(R.id.key_subtraction);
@@ -166,8 +172,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.key_nine:
                 return button_9.getText().toString();
 
+            case R.id.key_delete:
+                return "del";
+
             case R.id.key_clear:
-                return "DEL";
+                return "C";
+
+            case R.id.key_openbrace:
+                return "(";
+
+            case R.id.key_closebrace:
+                return ")";
 
             case R.id.key_divide:
                 return buttonDivision.getText().toString();
@@ -210,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 String item = (String) parent.getSelectedItem().toString();
                 rate.setBaseCurrency(item);
                 rate = fetch(rate);
+                baseCurrency.setText(rate.getBaseCurrency());
 
             }
 
@@ -240,7 +256,8 @@ public class MainActivity extends AppCompatActivity {
                 String item = (String) parent.getSelectedItem().toString();
 
                 rate.setTargetCurrency(item);
-               rate =  fetch(rate);
+                rate = fetch(rate);
+                targetCurrency.setText(rate.getTargetCurrency());
 
             }
 
@@ -262,8 +279,15 @@ public class MainActivity extends AppCompatActivity {
         String currentInput = getKeyString(v);
         String screenText = expressionText.getText().toString();
         String viewText = resultText.getText().toString();
+        if (currentInput.equals("(") || currentInput.equals(")")){
+            return;
+        }
 
-        if (currentInput.equals("DEL")) {
+        else if (currentInput.equals("C")) {
+            clearStacks();
+        }
+
+        else if (currentInput.equals("del")) {
             int endindex = screenText.length() - 1;
             if (endindex < 1) {
                 expressionText.setText("");
@@ -301,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, resultText.getText().toString());
                 String i = String.valueOf(evaluate(expressionText.getText().toString()));
 
-                resultText.setText(i.toString() + " "+ rate.getTargetCurrency());
+                resultText.setText(i.toString());
             } else {
                 return;
             }
