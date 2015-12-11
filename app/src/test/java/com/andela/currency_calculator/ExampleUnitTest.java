@@ -1,4 +1,4 @@
-package com.andela.currency_calculator;
+package com.andela.currencycalculator;
 
 import org.junit.Test;
 
