@@ -21,5 +21,8 @@
     <string name="decimal_separator">.</string>
     <string name="rates_file_key" />
     <string name="base_target">rate.getExchangeRate() + \"-\"+ rate.getTargetCurrency()</string>
+    <string name="delete">del</string>
+    <string name="open_brace">(</string>
+    <string name="close_brace">)</string>
 
 </resources>

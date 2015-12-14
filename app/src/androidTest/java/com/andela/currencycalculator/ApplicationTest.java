@@ -3,7 +3,7 @@ package com.andela.currencycalculator;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
-import com.andela.currencycalculator.Activities.MainActivity;
+import com.andela.currencycalculator.activities.MainActivity;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

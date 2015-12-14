@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.models.Currency;
+package com.andela.currencycalculator.models.currency;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

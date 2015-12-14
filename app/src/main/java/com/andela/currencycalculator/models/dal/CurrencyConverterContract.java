@@ -55,13 +55,13 @@ public final class CurrencyConverterContract {
             TEXT_TYPE + SEPARATOR+ Currency.COLUMN_COUNTRY_NAME +
             TEXT_TYPE + SEPARATOR + Currency.COLUMN_CURRENCY_NAME + TEXT_TYPE + " );" ;
 
-    public static long normalizeDate(long startDate) {
-        // normalize the start date to the beginning of the (UTC) day
-       Time time = new Time();
-        time.set(startDate);
-        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-        return time.setJulianDay(julianDay);
-    }
+//    public static long normalizeDate(long startDate) {
+//        // normalize the start date to the beginning of the (UTC) day
+//       Time time = new Time();
+//        time.set(startDate);
+//        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+//        return time.setJulianDay(julianDay);
+//    }
 
 
     public CurrencyConverterContract() {

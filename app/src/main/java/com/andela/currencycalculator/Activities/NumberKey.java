@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.Activities;
+package com.andela.currencycalculator.activities;
 
 /**
  * Created by Oluwatosin on 12/14/2015.

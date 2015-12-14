@@ -1,7 +1,7 @@
 package com.andela.currencycalculator.models.dal;
 
 import com.andela.currencycalculator.Constants;
-import com.andela.currencycalculator.models.Currency.Rate;
+import com.andela.currencycalculator.models.currency.Rate;
 
 import java.io.BufferedReader;
 import java.io.IOException;

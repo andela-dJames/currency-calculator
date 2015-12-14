@@ -1,18 +1,16 @@
-package com.andela.currencycalculator.Activities;
+package com.andela.currencycalculator.activities;
 
-/**
- * Created by Oluwatosin on 12/14/2015.
- */
 public class OperatorKey implements KeyPress {
 
 
         @Override
         public String operate(String expression, KeyPadButton keyPadButton) {
-            if (expression == "" || expression.endsWith(".") ||
+            if (expression.equals("") || expression.endsWith(".") ||
                     expression.endsWith("+") || expression.endsWith("-") ||
                     expression.endsWith("/") || expression.endsWith("*")){
-                return "";
+                return expression;
             }
+            else
             return expression.concat(keyPadButton.getKeyString());
         }
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.andela.currencycalculator.R;
-import com.andela.currencycalculator.models.Currency.Rate;
+import com.andela.currencycalculator.models.currency.Rate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

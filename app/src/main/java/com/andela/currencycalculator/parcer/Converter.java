@@ -1,6 +1,6 @@
 package com.andela.currencycalculator.parcer;
 
-import com.andela.currencycalculator.models.Currency.Rate;
+import com.andela.currencycalculator.models.currency.Rate;
 
 /**
  * Created by Oluwatosin on 12/6/2015.

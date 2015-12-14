@@ -1,11 +1,9 @@
-package com.andela.currencycalculator.Activities;
+package com.andela.currencycalculator.activities;
 
-
-import com.andela.currencycalculator.Activities.KeyPadButton;
 
 public class OperatorButton extends KeyPadButton {
 
     public OperatorButton() {
-        keyType = new NumberKey();
+        keyType = new OperatorKey();
     }
 }

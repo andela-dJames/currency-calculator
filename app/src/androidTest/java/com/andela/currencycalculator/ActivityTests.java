@@ -4,7 +4,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.andela.currencycalculator.Activities.MainActivity;
+
+import com.andela.currencycalculator.activities.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

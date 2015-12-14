@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.Activities;
+package com.andela.currencycalculator.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,8 +21,8 @@ import java.util.Iterator;
 import java.util.Stack;
 
 import com.andela.currencycalculator.R;
-import com.andela.currencycalculator.models.Currency.Observer;
-import com.andela.currencycalculator.models.Currency.Rate;
+import com.andela.currencycalculator.models.currency.Observer;
+import com.andela.currencycalculator.models.currency.Rate;
 import com.andela.currencycalculator.models.dal.FetchTask;
 import com.andela.currencycalculator.models.dal.SqlLiteDataAccess;
 import com.andela.currencycalculator.parcer.Parser;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView expressionText;
     private TextView resultText;
-    private RelativeLayout parentView;
+    private LinearLayout parentView;
 
     private Stack<String> inputBuffer;
     private Stack<String> operationBuffer;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         rate = new Rate();
         observer = new Observer(rate);
 
-        parentView = (RelativeLayout) findViewById(R.id.parent_view);
+        parentView = (LinearLayout) findViewById(R.id.parent_view);
 
         Once.initialise(this);
         initializeComponents();
@@ -112,15 +112,6 @@ public class MainActivity extends AppCompatActivity {
         resultText = (TextView) findViewById(R.id.evaluation_screen);
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
-        button_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KeyPadButton keyPadButton = new NumberKeyPad();
-                keyPadButton.setKeyString("1");
-                String result = keyPadButton.onKeyPress(expressionText.getText().toString());
-                expressionText.setText(result);
-            }
-        });
         button_2 = (TextView) findViewById(R.id.key_two);
         button_3 = (TextView) findViewById(R.id.key_three);
         button_4 = (TextView) findViewById(R.id.key_four);

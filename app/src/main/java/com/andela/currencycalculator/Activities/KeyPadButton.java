@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.Activities;
+package com.andela.currencycalculator.activities;
 
 public class KeyPadButton {
 
