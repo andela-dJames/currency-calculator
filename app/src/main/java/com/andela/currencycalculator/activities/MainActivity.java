@@ -25,10 +25,10 @@ import com.andela.currencycalculator.parser.Parser;
 import com.andela.currencycalculator.parser.exception.EvaluationException;
 import com.andela.currencycalculator.parser.exception.ParserException;
 import com.andela.currencycalculator.parser.expressionnodes.ExpressionNode;
+import com.andela.keypadcontroller.KeyPadButton;
+import com.andela.keypadcontroller.NumberKeyPad;
 
-import jonathanfinerty.once.Once;
 
-import static jonathanfinerty.once.Once.beenDone;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -76,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
         parentView = (LinearLayout) findViewById(R.id.parent_view);
 
-        Once.initialise(this);
+//        Once.initialise(this);
         initializeComponents();
         initializeBaseSpinner();
 
         intializeTargetSpinner();
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
-        runInBackground(getApplicationContext());
+        //runInBackground(getApplicationContext());
 
 //        if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
 //            runInBackground(getApplicationContext());
@@ -111,6 +111,14 @@ public class MainActivity extends AppCompatActivity {
         targetCurrency = (TextView) findViewById(R.id.target_curry_display);
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
+        button_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                KeyPadButton keyPadButton = new NumberKeyPad();
+                keyPadButton.onKeyPress(expressionText.getText().toString());
+            }
+        });
         button_2 = (TextView) findViewById(R.id.key_two);
         button_3 = (TextView) findViewById(R.id.key_three);
         button_4 = (TextView) findViewById(R.id.key_four);

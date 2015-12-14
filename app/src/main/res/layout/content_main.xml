@@ -272,7 +272,6 @@
                 android:layout_weight="1"
                 android:text="@string/one"
                 android:textStyle="normal"
-                android:onClick="onKeyPressed"
                 style="@style/keypadStyle"/>
             <TextView
                 android:layout_width="match_parent"
