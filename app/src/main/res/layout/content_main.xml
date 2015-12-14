@@ -50,7 +50,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/seven"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonSeven" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -61,7 +61,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/eight"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonEight" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -72,7 +72,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/nine"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonNine" />
                 </TableRow>
                 <TableRow  android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,7 +90,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/four"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonFour" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/five"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonfive" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -112,7 +112,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/six"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonSix" />
                 </TableRow>
                 <TableRow  android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/three"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonThree" />
                 </TableRow>
                 <TableRow  android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -170,7 +170,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/decimal_separator"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonDecimalPoint" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -181,7 +181,7 @@
                         style="@style/keypadStyle"
                         android:text="@string/zero"
                         android:textStyle="bold"
-                        android:onClick="onKeyPressed" />
+                        android:onClick="buttonZero" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -291,6 +291,105 @@ public class MainActivity extends AppCompatActivity {
         expressionText.setText(result);
 
     }
+    public void buttonFour(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("4");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonfive(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("5");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+    }
+
+    public void buttonSix(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("6");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonSeven(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("7");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+    public void buttonEight(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("8");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonNine(View v) {
+
+        KeyPadButton keyPadButton = new NumberKeyPad();
+        keyPadButton.setKeyString("9");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+    }
+
+    public void buttonZero(View v) {
+        KeyPadButton keyPadButton = new KeyZero();
+        keyPadButton.setKeyString("0");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonDecimalPoint(View v) {
+
+        KeyPadButton keyPadButton = new DecimalPointKeypad();
+        keyPadButton.setKeyString(".");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonPlus(View v) {
+        KeyPadButton keyPadButton = new OperatorButton();
+        keyPadButton.setKeyString("+");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonMinus(View v) {
+        KeyPadButton keyPadButton = new OperatorButton();
+        keyPadButton.setKeyString("-");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonMultiply(View v) {
+        KeyPadButton keyPadButton = new OperatorButton();
+        keyPadButton.setKeyString("*");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
+    public void buttonDivide(View v) {
+        KeyPadButton keyPadButton = new OperatorButton();
+        keyPadButton.setKeyString("/");
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
 
     public void onKeyPressed(View v) {
 
