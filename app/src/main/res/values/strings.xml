@@ -15,11 +15,14 @@
     <string name="clear">C</string>
     <string name="evaluate">=</string>
     <string name="plus">+</string>
-    <string name="minus">-</string>
+    <string name="minus">\u2014</string>
     <string name="divide">/</string>
-    <string name="multiply">*</string>
+    <string name="multiply">X</string>
     <string name="decimal_separator">.</string>
     <string name="rates_file_key" />
     <string name="base_target">rate.getExchangeRate() + \"-\"+ rate.getTargetCurrency()</string>
+    <string name="delete">del</string>
+    <string name="open_brace">(</string>
+    <string name="close_brace">)</string>
 
 </resources>

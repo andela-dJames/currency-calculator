@@ -1,10 +1,6 @@
-package com.andela.currency_calculator.models.dal;
-
-import com.andela.currency_calculator.models.Currency.Rate;
+package com.andela.currencycalculator.models.dal;
 
 import junit.framework.TestCase;
-
-import java.net.URL;
 
 /**
  * Created by Oluwatosin on 11/22/2015.

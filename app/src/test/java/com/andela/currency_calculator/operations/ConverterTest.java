@@ -1,9 +1,9 @@
-package com.andela.currency_calculator.operations;
+package com.andela.currencycalculator.operations;
 
 import android.test.AndroidTestCase;
 
-import com.andela.currency_calculator.models.Currency.Rate;
-import com.andela.currency_calculator.models.dal.FetchTask;
+import com.andela.currencycalculator.models.currency.Rate;
+import com.andela.currencycalculator.models.dal.FetchTask;
 
 /**
  * Created by Oluwatosin on 11/26/2015.
