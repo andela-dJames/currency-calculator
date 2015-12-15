@@ -2,6 +2,8 @@ package com.andela.currencycalculator.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 
 import com.andela.currencycalculator.R;
 import com.andela.currencycalculator.keypad.DecimalPointKeypad;
+import com.andela.currencycalculator.keypad.DeleteButton;
+import com.andela.currencycalculator.keypad.EqualityKeyPad;
 import com.andela.currencycalculator.keypad.KeyPadButton;
 import com.andela.currencycalculator.keypad.KeyZero;
 import com.andela.currencycalculator.keypad.NumberKeyPad;
@@ -92,11 +96,7 @@ public class MainActivity extends AppCompatActivity {
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
 
-        if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
-            runInBackground(getApplicationContext());
-            Log.d(TAG, "this has been done");
-            markDone(installDB);
-        }
+        runInBackground(getApplicationContext());
         rate = fetch(rate);
 
     }
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.currency_code, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_gallery_item);
 
         baseSpinner.setAdapter(adapter);
 
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getSelectedItem().toString();
+                String item =  parent.getSelectedItem().toString();
                 rate.setBaseCurrency(item);
                 rate = fetch(rate);
                 baseCurrency.setText(rate.getBaseCurrency());
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.currency_code, android.R.layout.simple_spinner_item);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_gallery_item);
 
         targetSpinner.setAdapter(adapter);
 
@@ -334,15 +334,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonEqualTo(View v) {
-        KeyPadButton keyPadButton = new KeyPadButton();
-        String expression = expressionText.getText().toString();
+        KeyPadButton keyPadButton = new EqualityKeyPad();
+        String expression = keyPadButton.onKeyPress(expressionText.getText().toString());
         if (expression.equals("")){
             return;
         }
-        double result = evaluate(expression);
+        else {
+            double result = evaluate(expression);
 
-        resultText.setText(String.valueOf(result));
+            resultText.setText(String.valueOf(result));
+        }
     }
+
+    public void delete(View v) {
+        KeyPadButton keyPadButton = new DeleteButton();
+        String result = keyPadButton.onKeyPress(expressionText.getText().toString());
+        expressionText.setText(result);
+
+    }
+
 
     public void onKeyPressed(View v) {
 
@@ -370,13 +380,16 @@ public class MainActivity extends AppCompatActivity {
         return convert(d);
     }
     public double convert(double val) {
-
+        fetch(rate);
         double exRate = rate.getExchangeRate();
         Log.d(TAG, String.valueOf(rate.getExchangeRate()));
         return exRate * val;
 
     }
+    public void clearButton(View v) {
+        clearStacks();
 
+    }
     public void clearStacks() {
 
         expressionText.setText("");
@@ -436,7 +449,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void runInBackground(Context context){
-        FetchTask fetchTask = new FetchTask(context);
-        fetchTask.execute(context);
+        if (isConnected(context)){
+            if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
+                FetchTask fetchTask = new FetchTask(context);
+                fetchTask.execute(context);
+                Log.d(TAG, "this has been done");
+                markDone(installDB);
+            }
+            else
+                return;
+        }
+
+
+    }
+
+    private boolean isConnected(Context context) {
+        ConnectivityManager manager =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
+        boolean isconnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isconnected;
     }
 }

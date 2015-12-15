@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_view"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.andela.currency_calculator.Activities.MainActivity"
@@ -19,7 +19,8 @@
         style="@style/screen_color"
         android:id="@+id/calculator_screen"
         android:gravity="top"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:layout_weight="0.73">
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,7 +151,7 @@
                 android:layout_weight="1"
                 android:text="@string/clear"
                 android:textStyle="bold"
-                android:onClick="onKeyPressed"
+                android:onClick="clearButton"
                 style="@style/keypadStyle"/>
             <TextView
                 android:layout_width="match_parent"
@@ -183,7 +184,7 @@
                 android:layout_weight="1"
                 android:text="@string/delete"
                 android:textStyle="normal"
-                android:onClick="onKeyPressed" style="@style/keypadStyle"/>
+                android:onClick="delete" style="@style/keypadStyle"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"

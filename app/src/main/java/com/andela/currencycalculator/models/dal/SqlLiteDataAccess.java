@@ -51,7 +51,7 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
      */
     public void bulkInsert(Uri uri, ContentValues[] values){
 
-        database = this.getReadableDatabase();
+        database = getWritableDatabase();
 
         database.beginTransaction();
 
@@ -66,6 +66,7 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
             database.setTransactionSuccessful();
         } finally {
             database.endTransaction();
+            database.close();
         }
 
     }

@@ -13,6 +13,11 @@ import java.util.List;
 
 public class ResourceProvider {
 
+    /**
+     * An array of content values
+     */
+    private ContentValues[] contentValues;
+
     private Context context;
 
     private ExchangeRateAPI exchangeRateAPI;
@@ -33,21 +38,23 @@ public class ResourceProvider {
         return new Rate(base, target);
     }
 
-    public ContentValues getRateContents(Rate rate) {
+    public ContentValues getRateContents(Rate rate, ContentValues values) {
 
-        ContentValues rateContents = new ContentValues();
+         values = new ContentValues();
 
-        rateContents.put(CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, rate.getBaseCurrency());
+        values.put(CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, rate.getBaseCurrency());
 
-        rateContents.put(CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY, rate.getTargetCurrency());
+        values.put(CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY, rate.getTargetCurrency());
 
-        rateContents.put(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE, rate.getExchangeRate());
+        values.put(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE, rate.getExchangeRate());
 
-        return rateContents;
+        return values;
     }
 
-    public void doSomething(Rate rate, int initial, List<String> list,
-                            ContentValues values) throws IOException {
+    public ContentValues[] runInLoop(Rate rate, int initial, List<String> list,
+                                     ContentValues values) throws IOException {
+        int count = 0;
+        contentValues = new ContentValues[count];
         for (int i = initial; i < list.size(); i++) {
 
             rate = combineCodes(list.get(initial), list.get(i));
@@ -60,8 +67,30 @@ public class ResourceProvider {
 
             rate.setExchangeRate(data);
 
-            values = getRateContents(rate);
+             getRateContents(rate, values);
+            contentValues = increaseArraySize(contentValues, count);
+            contentValues[count] = values;
+            count++;
         }
+    return contentValues;
+    }
 
+    /**
+     * Increases an array size
+     * @param values
+     * @param count
+     * @return
+     */
+    private ContentValues[] increaseArraySize(ContentValues[] values, int count) {
+
+        if (values.length == count){
+
+            ContentValues[] items = new ContentValues[values.length + 50];
+
+            System.arraycopy(values,0, items, 0, values.length);
+
+            values = items;
+        }
+        return values;
     }
 }
