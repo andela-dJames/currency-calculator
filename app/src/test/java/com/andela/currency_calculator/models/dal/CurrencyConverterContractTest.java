@@ -1,4 +1,4 @@
-package com.andela.currency_calculator.models.dal;
+package com.andela.currencycalculator.models.dal;
 
 import junit.framework.TestCase;
 
