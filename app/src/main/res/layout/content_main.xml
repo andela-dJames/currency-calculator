@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_view"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.andela.currency_calculator.Activities.MainActivity"
     tools:showIn="@layout/activity_main"
     android:background="@color/colordark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="vertical"
@@ -95,6 +96,35 @@
                     android:layout_gravity="end" />
             </LinearLayout>
         </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        style="@style/screen_color"
+        android:id="@+id/currency_bar"
+        android:gravity="top"
+        android:elevation="2dp"
+        android:background="@color/colordark">
+        <Spinner
+            android:id="@+id/base_curry"
+            android:layout_width="150dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            ></Spinner>
+
+       <ImageButton
+           android:layout_width="50dp"
+           android:layout_height="match_parent"
+           android:background="@color/colordark"
+           android:src="@drawable/ic_action_name"/>
+        <Spinner
+            android:id="@+id/target_currency_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="end"></Spinner>
+
     </LinearLayout>
     <TableLayout
         android:layout_width="match_parent"
@@ -346,7 +376,7 @@
                 style="@style/keypadStyle"
                 android:text="@string/evaluate"
                 android:textStyle="normal"
-                android:onClick="onKeyPressed" />
+                android:onClick="buttonEqualTo" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

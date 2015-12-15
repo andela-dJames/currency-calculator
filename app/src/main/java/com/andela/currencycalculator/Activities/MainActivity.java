@@ -16,11 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Iterator;
-
-import java.util.Stack;
-
 import com.andela.currencycalculator.R;
+import com.andela.currencycalculator.keypad.DecimalPointKeypad;
+import com.andela.currencycalculator.keypad.KeyPadButton;
+import com.andela.currencycalculator.keypad.KeyZero;
+import com.andela.currencycalculator.keypad.NumberKeyPad;
+import com.andela.currencycalculator.keypad.OperatorButton;
 import com.andela.currencycalculator.models.currency.Observer;
 import com.andela.currencycalculator.models.currency.Rate;
 import com.andela.currencycalculator.models.dal.FetchTask;
@@ -29,6 +30,8 @@ import com.andela.currencycalculator.parcer.Parser;
 import com.andela.currencycalculator.parcer.exception.EvaluationException;
 import com.andela.currencycalculator.parcer.exception.ParserException;
 import com.andela.currencycalculator.parcer.expressionnodes.ExpressionNode;
+
+import java.util.Stack;
 
 import jonathanfinerty.once.Once;
 
@@ -55,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView buttonZero, button_1, button_2, button_3, button_4,
             button_5, button_6, button_7, button_8, button_9, buttonDelete,
-            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator;
+            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator,
+            buttonOpenBrace, buttonCloseBrace, buttonClear, targetCurrency, baseCurrency;;
 
     private TextView expressionText;
     private TextView resultText;
@@ -91,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
             runInBackground(getApplicationContext());
             Log.d(TAG, "this has been done");
-            markDone(installDB);}
-
+            markDone(installDB);
+        }
         rate = fetch(rate);
 
     }
@@ -110,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
         expressionText = (TextView) findViewById(R.id.expression_screen);
         resultText = (TextView) findViewById(R.id.evaluation_screen);
+        baseCurrency = (TextView) findViewById(R.id.base_curry_display);
+        targetCurrency = (TextView) findViewById(R.id.target_curry_display);
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
         button_2 = (TextView) findViewById(R.id.key_two);
@@ -120,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
         button_7 = (TextView) findViewById(R.id.key_seven);
         button_8 = (TextView) findViewById(R.id.key_eight);
         button_9 = (TextView) findViewById(R.id.key_nine);
-        buttonDelete = (TextView) findViewById(R.id.key_clear);
+        buttonClear = (TextView) findViewById(R.id.key_clear);
+        buttonDelete = (TextView) findViewById(R.id.key_delete);
         buttonDelete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -134,61 +141,6 @@ public class MainActivity extends AppCompatActivity {
         buttonPlus = (TextView) findViewById(R.id.key_addition);
         buttonDecimal = (TextView) findViewById(R.id.decimal_separator);
         buttonEvaluator = (TextView) findViewById(R.id.key_equal);
-    }
-
-    public String getKeyString(View v) {
-        switch (v.getId()) {
-            case R.id.key_zero:
-                return buttonZero.getText().toString();
-
-            case R.id.key_one:
-                return button_1.getText().toString();
-
-            case R.id.key_two:
-                return button_2.getText().toString();
-            case R.id.key_three:
-                return button_3.getText().toString();
-
-            case R.id.key_four:
-                return button_4.getText().toString();
-
-            case R.id.key_five:
-                return button_5.getText().toString();
-
-            case R.id.key_six:
-                return button_6.getText().toString();
-
-            case R.id.key_seven:
-                return button_7.getText().toString();
-
-            case R.id.key_eight:
-                return button_8.getText().toString();
-            case R.id.key_nine:
-                return button_9.getText().toString();
-
-            case R.id.key_clear:
-                return "DEL";
-
-            case R.id.key_divide:
-                return buttonDivision.getText().toString();
-            case R.id.key_multiply:
-                return buttonMultiply.getText().toString();
-
-            case R.id.key_subtraction:
-                return buttonMinus.getText().toString();
-
-            case R.id.key_addition:
-                return buttonPlus.getText().toString();
-
-            case R.id.decimal_separator:
-                return buttonDecimal.getText().toString();
-
-            case R.id.key_equal:
-                return buttonEvaluator.getText().toString();
-            default:
-                return null;
-        }
-
     }
 
     public void initializeBaseSpinner() {
@@ -210,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 String item = (String) parent.getSelectedItem().toString();
                 rate.setBaseCurrency(item);
                 rate = fetch(rate);
-
+                baseCurrency.setText(rate.getBaseCurrency());
             }
 
             @Override
@@ -236,12 +188,11 @@ public class MainActivity extends AppCompatActivity {
         targetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String item = (String) parent.getSelectedItem().toString();
+                String item = parent.getSelectedItem().toString();
 
                 rate.setTargetCurrency(item);
                 rate = fetch(rate);
-
+                targetCurrency.setText(rate.getTargetCurrency());
             }
 
             @Override
@@ -382,74 +333,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void buttonEqualTo(View v) {
+        KeyPadButton keyPadButton = new KeyPadButton();
+        String expression = expressionText.getText().toString();
+        if (expression.equals("")){
+            return;
+        }
+        double result = evaluate(expression);
+
+        resultText.setText(String.valueOf(result));
+    }
+
     public void onKeyPressed(View v) {
 
-//        String currentInput = getKeyString(v);
-//        String screenText = expressionText.getText().toString();
-//        String viewText = resultText.getText().toString();
-//
-//        if (currentInput.equals("DEL")) {
-//            int endindex = screenText.length() - 1;
-//            if (endindex < 1) {
-//                expressionText.setText("");
-//
-//            }
-//             else {
-//                expressionText.setText(screenText.subSequence(0, endindex));
-//
-//            }
-//        } else if (currentInput.equals(".")) {
-//            if (hasfinalResult || resetInput) {
-//                expressionText.setText(0 + ".");
-//                hasfinalResult = false;
-//                resetInput = false;
-//            } else if (screenText.contains(".")) {
-//                return;
-//
-//            } else {
-//                expressionText.append(".");
-//            }
-//        } else if (currentInput.equals("+") || currentInput.equals("-") || currentInput.equals("/") || currentInput.equals("*")) {
-//            if (resetInput) {
-//                return;
-//            } else {
-//                if (hasOperator) {
-//                    return;
-//                } else if (hasOperand) {
-//                    expressionText.append(currentInput);
-//                    hasOperator = true;
-//                }
-//            }
-//        } else if (currentInput.equals("=")) {
-//            if (hasfinalResult) {
-//
-//                Log.d(TAG, resultText.getText().toString());
-//                String i = String.valueOf(evaluate(expressionText.getText().toString()));
-//
-//                resultText.setText(i.toString() + " "+ rate.getTargetCurrency());
-//            } else {
-//                return;
-//            }
-//        } else {
-//            expressionText.append(currentInput);
-//            hasfinalResult = true;
-//            hasOperand = true;
-//            hasOperator = false;
-//        }
-//    }
-//
-//    public void dumpInput() {
-//        expressionText.setText("");
-//        Iterator<String> it = inputBuffer.iterator();
-//        StringBuilder sb = new StringBuilder();
-//
-//        while (it.hasNext()) {
-//            CharSequence iValue = it.next();
-//            sb.append(iValue);
-//
-//        }
-//
-//        resultText.setText(sb.toString());
     }
 
     public double evaluate(String expression) {
@@ -540,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void runInBackground(Context context){
-        FetchTask fetchTask = new FetchTask();
+        FetchTask fetchTask = new FetchTask(context);
         fetchTask.execute(context);
     }
 }

@@ -2,7 +2,7 @@ package com.andela.currencycalculator.operations;
 
 import android.test.AndroidTestCase;
 
-import com.andela.currencycalculator.models.Currency.Rate;
+import com.andela.currencycalculator.models.currency.Rate;
 import com.andela.currencycalculator.models.dal.FetchTask;
 
 /**

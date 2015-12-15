@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.activities;
+package com.andela.currencycalculator.keypad;
 
 /**
  * Created by Oluwatosin on 12/14/2015.

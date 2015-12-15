@@ -1,7 +1,5 @@
-package com.andela.currencycalculator.activities;
+package com.andela.currencycalculator.keypad;
 
-
-import com.andela.currencycalculator.activities.KeyPadButton;
 
 public class NumberKeyPad extends KeyPadButton {
     public NumberKeyPad() {

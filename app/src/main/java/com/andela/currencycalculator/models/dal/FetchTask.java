@@ -7,11 +7,11 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.andela.currencycalculator.R;
+import com.andela.currencycalculator.ResourceProvider;
 import com.andela.currencycalculator.models.currency.Rate;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -23,6 +23,8 @@ import java.util.List;
 public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
 
     private static final String TAG = "BACKGROUND TASK" ;
+
+    private Context context;
     /**
      * A list of rates
      */
@@ -45,6 +47,12 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
      */
     private ExchangeRateAPI exchangeRateAPI;
 
+    private ResourceProvider resourceProvider;
+
+    public FetchTask(Context context) {
+        this.context = context;
+    }
+
     /**
      * The background task runner
      * @param params
@@ -53,41 +61,35 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
     @Override
     protected List<Rate> doInBackground(Context... params) {
         exchangeRateAPI = new ExchangeRateAPI();
+
+        resourceProvider = new ResourceProvider(params[0]);
+
         List<String> curr_codes = new ArrayList();
-        String[] array = params[0].getResources().getStringArray(R.array.currency_code);
-        curr_codes = Arrays.asList(array);
+
+        curr_codes = resourceProvider.getCurrencyCodesFromResource();
+
         access = new SqlLiteDataAccess(params[0]);
-        int i,j, count = 0;
-        Rate rate;
+
+        int i, count = 0;
+
         contentValues = new ContentValues[count];
         rates = new ArrayList<Rate>();
+        Rate rate = new Rate();
         for( i=0; i<curr_codes.size(); i++){
-            for( j= i; j <= (curr_codes.size()-1); j++ ){
 
-                rate = new Rate(curr_codes.get(i),curr_codes.get(j));
+            try {
+                resourceProvider.doSomething(rate, i, curr_codes, rateContents );
 
-
-                try {
-                    String str = exchangeRateAPI.fetchExchangeRate(rate);
-                    double d = Double.parseDouble(str);
-                    rate.setExchangeRate(d);
-                    saveSharedData(params[0], rate);
-                    rateContents = new ContentValues();
-                    rateContents.put(CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, rate.getBaseCurrency());
-                    rateContents.put(CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY, rate.getTargetCurrency());
-                    rateContents.put(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE, rate.getExchangeRate());
-                    contentValues = increaseArraySize(contentValues, count);
-                    contentValues[count] = rateContents;
-                    count++;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                rates.add(rate);
+                contentValues = increaseArraySize(contentValues, count);
+                contentValues[count] = rateContents;
+                count++;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
         }
 
-       access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
+        //access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
         return   rates;
     }
 
@@ -99,9 +101,9 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
     @Override
     protected void onPostExecute(List<Rate> list){
 
-       for (Rate rate : list){
-           Log.d(TAG, rate.getBaseCurrency() + " : " + rate.getTargetCurrency() + ": "+String.valueOf(rate.getExchangeRate()));
-       }
+        for (Rate rate : list){
+            Log.d(TAG, rate.getBaseCurrency() + " : " + rate.getTargetCurrency() + ": "+String.valueOf(rate.getExchangeRate()));
+        }
 
     }
 
@@ -127,11 +129,48 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
     private void saveSharedData(Context context, Rate rate) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         SharedPreferences.Editor editor = preferences.edit();
+
         editor.putFloat(rate.getExchangeRate() + "-"+ rate.getTargetCurrency(), (float) rate.getExchangeRate());
+
         editor.commit();
     }
 
+    public Rate combineCodes(String base, String target) {
+        return new Rate(base, target);
+    }
 
+    public ContentValues getRateContents(Rate rate){
+
+        ContentValues rateContents = new ContentValues();
+
+        rateContents.put(CurrencyConverterContract.ExchangeRates.BASE_CURRENCY, rate.getBaseCurrency());
+
+        rateContents.put(CurrencyConverterContract.ExchangeRates.TARGET_CURRENCY, rate.getTargetCurrency());
+
+        rateContents.put(CurrencyConverterContract.ExchangeRates.EXCHANGE_RATE, rate.getExchangeRate());
+
+        return rateContents;
+    }
+
+    public void doSomething(Rate rate, int initial,List<String> list,
+                            ContentValues values) throws IOException {
+        for (int i = initial; i < list.size(); i++) {
+
+            rate =  combineCodes(list.get(initial), list.get(i));
+
+            exchangeRateAPI = new ExchangeRateAPI();
+
+            String str = exchangeRateAPI.fetchExchangeRate(rate);
+
+            double data = Double.parseDouble(str);
+
+            rate.setExchangeRate(data);
+
+            values = getRateContents(rate);
+        }
+
+    }
 
 }

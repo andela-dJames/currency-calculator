@@ -1,4 +1,4 @@
-package com.andela.currencycalculator.activities;
+package com.andela.currencycalculator.keypad;
 
 public class DecimalPointKeypad extends KeyPadButton {
 
