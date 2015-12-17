@@ -3,7 +3,7 @@
     package="com.andela.currencycalculator">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,19 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.andela.currencycalculator.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <!-- <provider -->
+        <!-- android:authorities="com.andela.currency_calculator" -->
+        <!-- android:name=".models.dal.ExchangeRateProvider"/> -->
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<provider-->
-            <!--android:authorities="com.andela.currency_calculator"-->
-            <!--android:name=".models.dal.ExchangeRateProvider"/>-->
+
     </application>
 
 </manifest>
