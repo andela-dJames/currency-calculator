@@ -26,6 +26,8 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
      */
     public static final String DATABASE_NAME = "currency.db";
 
+    public static final String DB_PATH = "data/data/com.andela.currency_calculator/databases";
+
     public SqlLiteDataAccess(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         database = getReadableDatabase();
