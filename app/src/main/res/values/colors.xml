@@ -7,4 +7,5 @@
 <color name="bluegrey">#607D8B</color>
 <color name="appbar_color">#263268</color>
 <color name="key_pressed">#ECEFF1</color>
+<color name="operator">#004D40</color>
 </resources>

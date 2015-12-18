@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -29,12 +30,17 @@
                 android:singleLine="true"
                 android:scrollHorizontally="false"
                 android:text="0" />
-        <Spinner
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary">
+            <Spinner
             android:id="@+id/base_curry"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_gravity="start"
-            ></Spinner>
+            ></Spinner></LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/currency_expression_display"
@@ -48,11 +54,16 @@
             android:singleLine="true"
             android:scrollHorizontally="false"
             android:text="0" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
         <Spinner
             android:id="@+id/target_currency_spinner"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_gravity="start"></Spinner>
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/expression_screen_height"
@@ -141,7 +152,9 @@
                 android:layout_weight="1"
                 android:text="@string/delete"
                 android:textStyle="normal"
-                android:onClick="delete" style="@style/keypadStyle"/>
+                android:onClick="delete"
+                android:background="#004D40"
+                style="@style/keypadStyle"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -192,7 +205,9 @@
                 android:layout_weight="1"
                 android:text="@string/divide"
                 android:textStyle="normal"
-                android:onClick="buttonDivide" style="@style/keypadStyle"/>
+                android:onClick="buttonDivide"
+                android:background="#004D40"
+                style="@style/keypadStyle"/>
         </TableRow>
         <TableRow  android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -243,7 +258,8 @@
                 style="@style/keypadStyle"
                 android:text="@string/multiply"
                 android:textStyle="normal"
-                android:onClick="buttonMultiply" />
+                android:onClick="buttonMultiply"
+                android:background="#004D40"/>
         </TableRow>
         <TableRow  android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -294,7 +310,8 @@
                 style="@style/keypadStyle"
                 android:text="@string/minus"
                 android:textStyle="normal"
-                android:onClick="buttonMinus" />
+                android:onClick="buttonMinus"
+                android:background="#004D40"/>
         </TableRow>
         <TableRow  android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -343,7 +360,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 style="@style/keypadStyle"
-                android:background="@drawable/key_state_list"
+                android:background="#004D40"
                 android:text="@string/plus"
                 android:textStyle="normal"
                 android:onClick="buttonPlus" />

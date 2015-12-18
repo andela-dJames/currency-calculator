@@ -30,10 +30,10 @@ import com.andela.currencycalculator.models.currency.Observer;
 import com.andela.currencycalculator.models.currency.Rate;
 import com.andela.currencycalculator.models.dal.FetchTask;
 import com.andela.currencycalculator.models.dal.SqlLiteDataAccess;
-import com.andela.currencycalculator.parcer.Parser;
-import com.andela.currencycalculator.parcer.exception.EvaluationException;
-import com.andela.currencycalculator.parcer.exception.ParserException;
-import com.andela.currencycalculator.parcer.expressionnodes.ExpressionNode;
+import com.andela.currencycalculator.parser.Parser;
+import com.andela.currencycalculator.parser.exception.EvaluationException;
+import com.andela.currencycalculator.parser.exception.ParserException;
+import com.andela.currencycalculator.parser.expressionnodes.ExpressionNode;
 
 import java.util.Stack;
 
