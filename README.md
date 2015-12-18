@@ -1,4 +1,4 @@
-# currency-calculator
+# CURRENCY-CALCULATOR
 
 ## PROBLEM DESCRIPTION
 
@@ -6,7 +6,7 @@ This Checkpoint requires an android app to be built. The app allows users to per
 and the result is given in a currency chosen by the user as target currency.
 The user selects a base currency and a target currency for the operation.
 
-## APROACH
+## APPROACH
 This Project consist of 3 major modules
 
 * Models
