@@ -21,7 +21,7 @@
         android:paddingTop="5dp"
         android:elevation="4dp">
 
-        <com.andela.calculator.DisplayText
+        <com.andela.currencycalculator.textview.DisplayText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exchange_rate_display"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="5dp"
             android:textSize="10sp"/>
 
-        <com.andela.calculator.DisplayTextLight
+        <com.andela.currencycalculator.textview.DisplayTextLight
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/expression_text_view"
@@ -43,7 +43,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
-        <com.andela.calculator.DisplayTextLight
+        <com.andela.currencycalculator.textview.DisplayTextLight
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/result_text_view"
@@ -66,7 +66,8 @@
         android:gravity="center_vertical|center">
         <TableRow android:gravity="center|center_horizontal">
 
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NGN"
@@ -77,7 +78,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_target"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NGN"
@@ -88,7 +90,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_convert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NGN"
@@ -99,7 +102,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NGN"
@@ -116,10 +120,11 @@
 
         <TableRow android:gravity="center|center_horizontal">
 
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_seven"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/seven"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -127,10 +132,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_eight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/eight"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -138,10 +144,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_nine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/nine"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -149,59 +156,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_divide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
-                android:textSize="35dp"
-                android:textColor="#ffffff"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|center_horizontal" />
-
-
-        </TableRow>
-        <TableRow android:gravity="center|center_horizontal">
-
-            <com.andela.calculator.DisplayTextLight
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NGN"
-                android:textSize="35dp"
-                android:textColor="#ffffff"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NGN"
-                android:textSize="35dp"
-                android:textColor="#ffffff"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NGN"
-                android:textSize="35dp"
-                android:textColor="#ffffff"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/divide"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -214,10 +173,11 @@
         </TableRow>
         <TableRow android:gravity="center|center_horizontal">
 
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_four"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/four"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -225,10 +185,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_five"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/five"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -236,10 +197,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_six"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/six"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -247,10 +209,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_multiply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/multiply"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -263,10 +226,11 @@
         </TableRow>
         <TableRow android:gravity="center|center_horizontal">
 
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/one"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -274,10 +238,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/two"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -285,10 +250,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_three"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/three"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
@@ -296,10 +262,64 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|center_horizontal" />
-            <com.andela.calculator.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_subtraction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGN"
+                android:text="@string/minus"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
+        </TableRow>
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/decimal_separator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/decimal_separator"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_zero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zero"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_equal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/evaluate"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:id="@+id/key_addition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
