@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
 
-        runInBackground(getApplicationContext());
-        rate = fetch(rate);
+//        runInBackground(getApplicationContext());
+//        rate = fetch(rate);
 
     }
 
