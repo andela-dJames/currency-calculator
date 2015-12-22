@@ -4,23 +4,18 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-
 import com.andela.currencycalculator.activities.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -100,12 +95,6 @@ public class ActivityTests {
     public void testClickPlusOperatorDoesNothingWithoutAnOperand() {
         onView(withId(R.id.key_addition)).perform(click());
         onView(withId(R.id.expression_screen)).check(matches(withText(containsString(""))));
-    }
-    @Test
-    public void testBaseSpinnerItemSelected() {
-        onView(withId(R.id.base_curry));
-        onData(allOf(is(instanceOf(String.class)), is(USD))).perform(click());
-        onView(withId(R.id.base_curry_display)).check(matches(withText(containsString(USD))));
     }
 
     @Test

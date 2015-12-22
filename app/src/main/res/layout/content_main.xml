@@ -2,397 +2,316 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.andela.currency_calculator.Activities.MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:background="@color/colordark"
+    android:id="@+id/parent_view"
     android:orientation="vertical"
-    android:weightSum="1">
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.andela.calculator.MainActivity"
+    tools:showIn="@layout/activity_main">
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/main_screen"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/calculator_screen_height"
-        style="@style/screen_color"
-        android:id="@+id/calculator_screen"
-        android:gravity="top"
-        android:elevation="4dp"
-        android:layout_weight="0.73">
-        <HorizontalScrollView
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:elevation="4dp">
+
+        <com.andela.calculator.DisplayText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_rate_display"
+            android:text="1 USD = 199.057 NGN"
+            android:textColor="@color/exchange_rate_display_text"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="10sp"/>
+
+        <com.andela.calculator.DisplayTextLight
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/expression_scroll_screen_view"
-            android:fillViewport="false">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/expression_screen_height"
-                    android:padding="@dimen/screen_padding"
-                    android:gravity="center_vertical|right"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/expression_screen"
-                    android:layout_gravity="center_horizontal"
-                    style="@style/text_color"
-                    android:singleLine="true"
-                    android:textDirection="ltr"
-                    android:textSize="@dimen/expresion_screen_text_size"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:padding="@dimen/screen_padding"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/base_curry_display"
-                    android:layout_gravity="right"
-                    android:gravity="center_vertical|right"
-                    style="@style/text_color"
-                    android:textSize="@dimen/currency_screen_text_size"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:scrollHorizontally="false" />
-            </LinearLayout>
-        </HorizontalScrollView>
-        <HorizontalScrollView
+            android:id="@+id/expression_text_view"
+            android:text="80*2"
+            android:textSize="@dimen/expression_text_size"
+            android:textColor="#ffffff"
+            android:fontFamily="Lato-Light"
+            android:textDirection="rtl"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <com.andela.calculator.DisplayTextLight
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/expression_scroll_view"
-            android:fillViewport="false">
-            <LinearLayout
-                android:layout_width="435dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:padding="@dimen/screen_padding"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/evaluation_screen"
-                    android:layout_gravity="end"
-                    android:gravity="center_vertical|right"
-                    style="@style/text_color"
-                    android:textSize="@dimen/result_screen_text_size"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:scrollHorizontally="false" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:padding="@dimen/screen_padding"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/target_curry_display"
-                    android:gravity="center_vertical|right"
-                    style="@style/text_color"
-                    android:textSize="@dimen/currency_screen_text_size"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:scrollHorizontally="false"
-                    android:layout_gravity="end" />
-            </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/screen_color"
-        android:id="@+id/currency_bar"
-        android:gravity="top"
-        android:elevation="2dp"
-        android:background="@color/colordark">
-        <Spinner
-            android:id="@+id/base_curry"
-            android:layout_width="150dp"
-            android:layout_height="fill_parent"
-            android:layout_gravity="left"
-            ></Spinner>
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@color/colordark"
-            android:src="@drawable/ic_action_name"/>
-        <Spinner
-            android:id="@+id/target_currency_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="end"></Spinner>
-
+            android:layout_height="wrap_content"
+            android:id="@+id/result_text_view"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:text="160"
+            android:textSize="@dimen/result_text_size"
+            android:textColor="#ffffff"
+            android:fontFamily="Lato-Light"
+            android:textDirection="rtl"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:stretchColumns="4"
-        android:layout_gravity="center"
-        android:divider="@drawable/divider"
-        android:showDividers="middle"
-        android:paddingTop="20dp">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:divider="@drawable/divider"
-            android:showDividers="middle">
-            <TextView
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical|center">
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.calculator.DisplayTextLight
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_clear"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/clear"
-                android:textStyle="bold"
-                android:onClick="clearButton"
-                style="@style/keypadStyle"/>
-            <TextView
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_openbrace"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/open_brace"
-                android:textStyle="normal"
-                android:onClick="onKeyPressed"
-                style="@style/keypadStyle"/>
-            <TextView
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_closebrace"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/close_brace"
-                android:textStyle="normal"
-                android:onClick="onKeyPressed"
-                style="@style/keypadStyle"/>
-            <TextView
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_delete"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/delete"
-                android:textStyle="normal"
-                android:onClick="delete" style="@style/keypadStyle"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:divider="@drawable/divider"
-            android:showDividers="middle">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_seven"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/seven"
-                android:textStyle="normal"
-                android:onClick="buttonSeven"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_eight"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/eight"
-                android:textStyle="normal"
-                android:onClick="buttonEight"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_nine"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/nine"
-                android:textStyle="normal"
-                android:onClick="buttonNine"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_divide"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/divide"
-                android:textStyle="normal"
-                android:onClick="buttonDivide" style="@style/keypadStyle"/>
-        </TableRow>
-        <TableRow  android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:divider="@drawable/divider"
-            android:showDividers="middle">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_four"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/four"
-                android:textStyle="normal"
-                android:onClick="buttonFour"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_five"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/five"
-                android:textStyle="normal"
-                android:onClick="buttonfive" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_six"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/six"
-                android:textStyle="normal"
-                android:onClick="buttonSix" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_multiply"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/multiply"
-                android:textStyle="normal"
-                android:onClick="buttonMultiply" />
-        </TableRow>
-        <TableRow  android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:divider="@drawable/divider"
-            android:showDividers="middle">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_one"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/one"
-                android:textStyle="normal"
-                android:onClick="buttonOne"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_two"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/two"
-                android:textStyle="normal"
-                android:onClick="buttonTwo" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_three"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/three"
-                android:textStyle="normal"
-                android:onClick="buttonThree" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_subtraction"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/minus"
-                android:textStyle="normal"
-                android:onClick="buttonMinus" />
-        </TableRow>
-        <TableRow  android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:divider="@drawable/divider"
-            android:showDividers="middle">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/decimal_separator"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:text="@string/decimal_separator"
-                android:textStyle="normal"
-                android:onClick="buttonDecimalPoint"
-                style="@style/keypadStyle"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_zero"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/zero"
-                android:textStyle="normal"
-                android:onClick="buttonZero" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_equal"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:text="@string/evaluate"
-                android:textStyle="normal"
-                android:onClick="buttonEqualTo" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/key_addition"
-                android:layout_column="0"
-                android:layout_weight="1"
-                style="@style/keypadStyle"
-                android:background="@drawable/key_state_list"
-                android:text="@string/plus"
-                android:textStyle="normal"
-                android:onClick="buttonPlus" />
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
         </TableRow>
 
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
+        </TableRow>
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
+        </TableRow>
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
+        </TableRow>
+        <TableRow android:gravity="center|center_horizontal">
+
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+            <com.andela.calculator.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NGN"
+                android:textSize="35dp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|center_horizontal" />
+
+
+        </TableRow>
 
     </TableLayout>
+
 
 </LinearLayout>

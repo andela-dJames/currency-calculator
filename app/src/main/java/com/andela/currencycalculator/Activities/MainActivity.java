@@ -12,10 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.andela.currencycalculator.R;
@@ -54,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Observer observer;
 
-    private Spinner baseSpinner;
 
-    private Spinner targetSpinner;
 
     private boolean resetInput, hasfinalResult, hasOperator, hasOperand = false;
 
@@ -90,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         Once.initialise(this);
         initializeComponents();
-        initializeBaseSpinner();
-
-        intializeTargetSpinner();
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
 
@@ -114,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
         expressionText = (TextView) findViewById(R.id.expression_screen);
         resultText = (TextView) findViewById(R.id.evaluation_screen);
-        baseCurrency = (TextView) findViewById(R.id.base_curry_display);
-        targetCurrency = (TextView) findViewById(R.id.target_curry_display);
+//        baseCurrency = (TextView) findViewById(R.id.base_curry_display);
+//        targetCurrency = (TextView) findViewById(R.id.target_curry_display);
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
         button_2 = (TextView) findViewById(R.id.key_two);
@@ -142,66 +134,6 @@ public class MainActivity extends AppCompatActivity {
         buttonDecimal = (TextView) findViewById(R.id.decimal_separator);
         buttonEvaluator = (TextView) findViewById(R.id.key_equal);
     }
-
-    public void initializeBaseSpinner() {
-
-        baseSpinner = (Spinner) findViewById(R.id.base_curry);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.currency_code, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_gallery_item);
-
-        baseSpinner.setAdapter(adapter);
-
-        rate.setBaseCurrency((String) adapter.getItem(0));
-
-        baseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item =  parent.getSelectedItem().toString();
-                rate.setBaseCurrency(item);
-                rate = fetch(rate);
-                baseCurrency.setText(rate.getBaseCurrency());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    public void intializeTargetSpinner() {
-
-        targetSpinner = (Spinner) findViewById(R.id.target_currency_spinner);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.currency_code, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_gallery_item);
-
-        targetSpinner.setAdapter(adapter);
-
-        rate.setTargetCurrency(((String) adapter.getItem(0)));
-
-        targetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getSelectedItem().toString();
-
-                rate.setTargetCurrency(item);
-                rate = fetch(rate);
-                targetCurrency.setText(rate.getTargetCurrency());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
