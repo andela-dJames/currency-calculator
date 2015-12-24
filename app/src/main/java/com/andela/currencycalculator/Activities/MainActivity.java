@@ -84,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        rate = new Rate();
-        observer = new Observer(rate);
-
         parentView = (LinearLayout) findViewById(R.id.parent_view);
 
         Once.initialise(this);
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
         resourceProvider = new ResourceProvider(getApplicationContext());
-
+        initializeRates();
 //        runInBackground(getApplicationContext());
 //        rate = fetch(rate);
 
@@ -107,6 +104,16 @@ public class MainActivity extends AppCompatActivity {
        double ex =  sqlLiteDataAccess.get(rate.getBaseCurrency(), rate.getTargetCurrency());
         rate.setExchangeRate(ex);
         return rate;
+
+    }
+
+    public void initializeRates(){
+        String base = baseCurrency.getText().toString();
+        String target = targetCurrency.getText().toString();
+        rate = new Rate(base, target);
+        observer = new Observer(rate);
+        fetch(rate);
+
 
     }
 
@@ -334,8 +341,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectBaseCurrency(View v) {
-        showCurrencies(getResources().getString(R.string.select_currency));
-        baseCurrency.setText(code);
+        List<String> codes = new ArrayList<>();
+        final CharSequence[] args = getCurrencyCodesFromResource();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.select_currency))
+                .setSingleChoiceItems(args, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item = args[which].toString();
+                        baseCurrency.setText(item);
+                        rate.setBaseCurrency(item);
+                        fetch(rate);
+                        exRateDisplay.setText("1 " + item + " =" + rate.getExchangeRate() + " " + rate.getTargetCurrency());
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.create().show();
 
     }
 
@@ -344,18 +367,21 @@ public class MainActivity extends AppCompatActivity {
         final CharSequence[] args = getCurrencyCodesFromResource();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
+        builder.setTitle(getResources().getString(R.string.select_target))
                 .setSingleChoiceItems(args, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        code = args[which].toString();
+                        String item = args[which].toString();
+                        targetCurrency.setText(item);
+                        rate.setTargetCurrency(item);
+                        fetch(rate);
+                        exRateDisplay.setText("1 " + rate.getBaseCurrency() + " = " + rate.getExchangeRate() + " " + rate.getTargetCurrency());
+
                         dialog.dismiss();
 
                     }
                 });
         builder.create().show();
-
-
 
     }
 

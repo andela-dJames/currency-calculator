@@ -25,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exchange_rate_display"
-            android:text="1 USD = 199.057 NGN"
             android:textColor="@color/exchange_rate_display_text"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
