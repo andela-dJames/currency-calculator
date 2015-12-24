@@ -5,9 +5,10 @@
     <color name="colorAccent">#008C8C</color>
     <color name="colorP">#003040</color>
     <color name="exchange_rate_display_text">#858593</color>
-<color name="colordark">#37474F</color>
-<color name="bluegrey">#607D8B</color>
-<color name="appbar_color">#263268</color>
-<color name="key_pressed">#ECEFF1</color>
-<color name="operator">#004D40</color>
+    <color name="colordark">#37474F</color>
+    <color name="bluegrey">#607D8B</color>
+    <color name="appbar_color">#263268</color>
+    <color name="key_pressed">#ECEFF1</color>
+    <color name="item_pressed_background_color">#e0e0e0</color>
+    <color name="operator">#004D40</color>
 </resources>

@@ -35,10 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/expression_text_view"
-            android:text="80*2"
             android:textSize="@dimen/expression_text_size"
             android:textColor="#ffffff"
-            android:fontFamily="Lato-Light"
             android:textDirection="rtl"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
@@ -50,7 +48,6 @@
             android:id="@+id/result_text_view"
             android:singleLine="true"
             android:scrollHorizontally="true"
-            android:text="160"
             android:textSize="@dimen/result_text_size"
             android:textColor="#ffffff"
             android:textDirection="rtl"
@@ -78,7 +75,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical|center">
 
-            <com.andela.currencycalculator.textview.DisplayTextLight
+            <com.andela.currencycalculator.textview.DisplayText
                 android:id="@+id/key_base"
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
@@ -89,28 +86,33 @@
                 android:gravity="center|center_horizontal"
                 android:padding="5dp"
                 android:layout_column="0"
-                android:layout_weight="1"/>
-            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="selectBaseCurrency"/>
+            <com.andela.currencycalculator.textview.DisplayText
                 android:id="@+id/key_target"
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="NGN"
+                android:clickable="true"
                 android:textSize="25dp"
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:padding="5dp" />
-            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:padding="5dp"
+                android:onClick="selectTargetCurrency"/>
+            <com.andela.currencycalculator.textview.DisplayText
                 android:background="@color/colorAccent"
                 android:id="@+id/key_convert"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="NGN"
+                android:text="CONV"
                 android:textSize="25dp"
                 android:textColor="#ffffff"
                 android:gravity="center|center_horizontal"
+                android:clickable="true"
                 android:padding="5dp"
                 android:layout_column="0"
                 android:layout_weight="1"/>
@@ -119,13 +121,16 @@
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="NGN"
                 android:textSize="25dp"
+                android:clickable="true"
+                android:onClick="delete"
                 android:textColor="#ffffff"
                 android:gravity="center|center_horizontal"
                 android:padding="5dp"
                 android:layout_column="0"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:drawableRight="@drawable/ic_backspace"/>
 
 
         </TableRow>
@@ -147,8 +152,11 @@
                 android:text="@string/seven"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonSeven"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:clickable="true"
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:id="@+id/key_eight"
@@ -157,7 +165,8 @@
                 android:text="@string/eight"
                 android:textSize="35dp"
                 android:textColor="#ffffff"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:onClick="buttonEight"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_nine"
                 android:layout_width="match_parent"
@@ -167,7 +176,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonNine"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_divide"
                 android:background="@color/colorPrimary"
@@ -175,10 +186,12 @@
                 android:layout_height="match_parent"
                 android:text="@string/divide"
                 android:textSize="35dp"
+                android:clickable="true"
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:onClick="buttonDivide"/>
 
 
         </TableRow>
@@ -199,7 +212,8 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:onClick="buttonFour"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_five"
                 android:layout_width="match_parent"
@@ -209,7 +223,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonfive"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_six"
                 android:layout_width="match_parent"
@@ -219,7 +235,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonSix"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_multiply"
                 android:background="@color/colorPrimary"
@@ -230,7 +248,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonMultiply"/>
 
 
         </TableRow>
@@ -251,7 +271,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonOne"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_two"
                 android:layout_width="match_parent"
@@ -261,7 +283,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonTwo"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_three"
                 android:layout_width="match_parent"
@@ -271,7 +295,9 @@
                 android:textColor="#ffffff"
                 android:layout_weight="1"
                 android:layout_column="0"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonThree"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_subtraction"
                 android:layout_width="match_parent"
@@ -282,7 +308,9 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:onClick="buttonMinus"/>
 
 
         </TableRow>
@@ -303,7 +331,9 @@
                 android:textColor="#ffffff"
                 android:layout_weight="1"
                 android:layout_column="0"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonDecimalPoint"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_zero"
                 android:layout_width="match_parent"
@@ -313,7 +343,9 @@
                 android:textColor="#ffffff"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:gravity="center|center_horizontal" />
+                android:gravity="center|center_horizontal"
+                android:clickable="true"
+                android:onClick="buttonZero"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_equal"
                 android:layout_width="match_parent"
@@ -324,7 +356,9 @@
                 android:layout_weight="1"
                 android:layout_column="0"
                 android:gravity="center|center_horizontal"
-                android:background="@color/colorAccent"/>
+                android:background="@color/colorAccent"
+                android:clickable="true"
+                android:onClick="buttonEqualTo"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_addition"
                 android:layout_width="match_parent"
@@ -335,7 +369,9 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:onClick="buttonPlus"/>
 
 
         </TableRow>

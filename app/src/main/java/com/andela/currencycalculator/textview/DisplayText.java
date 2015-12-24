@@ -18,4 +18,9 @@ public class DisplayText extends TextView {
     public boolean isInEditMode() {
         return super.isInEditMode();
     }
+
+    @Override
+    public boolean isClickable() {
+        return super.isClickable();
+    }
 }

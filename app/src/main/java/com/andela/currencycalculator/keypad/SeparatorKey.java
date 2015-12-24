@@ -13,6 +13,7 @@ public class SeparatorKey implements KeyPress {
                 return expression;
             }
 
+
             return expression.concat(keyPadButton.getKeyString());
         }
 }

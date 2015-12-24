@@ -1,6 +1,8 @@
 package com.andela.currencycalculator.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.andela.currencycalculator.R;
+import com.andela.currencycalculator.ResourceProvider;
 import com.andela.currencycalculator.keypad.DecimalPointKeypad;
 import com.andela.currencycalculator.keypad.DeleteButton;
 import com.andela.currencycalculator.keypad.EqualityKeyPad;
@@ -32,6 +35,8 @@ import com.andela.currencycalculator.parser.exception.EvaluationException;
 import com.andela.currencycalculator.parser.exception.ParserException;
 import com.andela.currencycalculator.parser.expressionnodes.ExpressionNode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import jonathanfinerty.once.Once;
@@ -51,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
     private Observer observer;
 
-
+    private ResourceProvider resourceProvider;
 
     private boolean resetInput, hasfinalResult, hasOperator, hasOperand = false;
 
     private TextView buttonZero, button_1, button_2, button_3, button_4,
             button_5, button_6, button_7, button_8, button_9, buttonDelete,
-            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal, buttonEvaluator,
-            buttonOpenBrace, buttonCloseBrace, buttonClear, targetCurrency, baseCurrency;;
+            buttonDivision, buttonMultiply, buttonMinus, buttonPlus, buttonDecimal,
+            buttonEvaluator, exRateDisplay, baseCurrency, targetCurrency;
 
     private TextView expressionText;
     private TextView resultText;
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private Stack<String> inputBuffer;
     private Stack<String> operationBuffer;
     private Rate rate;
+    private String code;
 
 
     @Override
@@ -85,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
         Once.initialise(this);
         initializeComponents();
+        initializeDisplays();
         inputBuffer = new Stack<String>();
         operationBuffer = new Stack<>();
+        resourceProvider = new ResourceProvider(getApplicationContext());
 
 //        runInBackground(getApplicationContext());
 //        rate = fetch(rate);
@@ -102,12 +110,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void initializeComponents() {
+    public void initializeDisplays() {
+        expressionText = (TextView) findViewById(R.id.expression_text_view);
+        resultText = (TextView) findViewById(R.id.result_text_view);
+        exRateDisplay = (TextView) findViewById(R.id.exchange_rate_display);
+        baseCurrency = (TextView) findViewById(R.id.key_base);
+        targetCurrency = (TextView) findViewById(R.id.key_target);
+    }
 
-        expressionText = (TextView) findViewById(R.id.expression_screen);
-        resultText = (TextView) findViewById(R.id.evaluation_screen);
-//        baseCurrency = (TextView) findViewById(R.id.base_curry_display);
-//        targetCurrency = (TextView) findViewById(R.id.target_curry_display);
+    public void initializeComponents() {
         buttonZero = (TextView) findViewById(R.id.key_zero);
         button_1 = (TextView) findViewById(R.id.key_one);
         button_2 = (TextView) findViewById(R.id.key_two);
@@ -118,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         button_7 = (TextView) findViewById(R.id.key_seven);
         button_8 = (TextView) findViewById(R.id.key_eight);
         button_9 = (TextView) findViewById(R.id.key_nine);
-        buttonClear = (TextView) findViewById(R.id.key_clear);
         buttonDelete = (TextView) findViewById(R.id.key_delete);
         buttonDelete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -294,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
         Parser parser = new Parser();
 
-        double d = 0.00000;
+        double d = 0;
 
         try {
 
@@ -309,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d(TAG, e.getMessage());
         }
-        return convert(d);
+        return d;
     }
     public double convert(double val) {
         fetch(rate);
@@ -320,6 +330,57 @@ public class MainActivity extends AppCompatActivity {
     }
     public void clearButton(View v) {
         clearStacks();
+
+    }
+
+    public void selectBaseCurrency(View v) {
+        showCurrencies(getResources().getString(R.string.select_currency));
+        baseCurrency.setText(code);
+
+    }
+
+    public void selectTargetCurrency(View v) {
+        List<String> codes = new ArrayList<>();
+        final CharSequence[] args = getCurrencyCodesFromResource();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setSingleChoiceItems(args, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        code = args[which].toString();
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.create().show();
+
+
+
+    }
+
+    public void showCurrencies(String title) {
+        List<String> codes = new ArrayList<>();
+        final CharSequence[] args = getCurrencyCodesFromResource();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setSingleChoiceItems(args, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        code = args[which].toString();
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.create().show();
+
+    }
+
+
+    public CharSequence[] getCurrencyCodesFromResource() {
+
+        return  getResources().getStringArray(R.array.currency_code);
 
     }
     public void clearStacks() {
