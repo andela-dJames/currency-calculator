@@ -57,7 +57,7 @@ public class ResourceProvider {
         values = new ContentValues();
         contentValues = new ContentValues[count];
         for (int i = 0; i < list.size(); i++) {
-            for (int j = i; j < list.size(); j++) {
+            for (int j = 0; j < list.size(); j++) {
 
                 rate = combineCodes(list.get(i), list.get(i));
 

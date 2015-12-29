@@ -10,6 +10,9 @@ public class DeleteKey implements KeyPress {
         if (index < 1){
             return "";
         }
+        if (Character.isLetter(expression.charAt(expression.length()-1))){
+            return expression.substring(0, expression.length()-3);
+        }
 
         return expression.subSequence(0, index).toString();
     }

@@ -7,8 +7,8 @@ public class ZeroKey implements KeyPress {
         @Override
         public String operate(String expression, KeyPadButton keyPadButton) {
             if(expression.equals("0")){
-                return expression;
+                return "";
             }
-            return expression.concat(keyPadButton.getKeyString());
+            return keyPadButton.getKeyString();
         }
 }

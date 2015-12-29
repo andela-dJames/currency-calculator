@@ -36,7 +36,7 @@
             android:id="@+id/expression_text_view"
             android:textSize="@dimen/expression_text_size"
             android:textColor="#ffffff"
-            android:textDirection="rtl"
+            android:textDirection="ltr"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -49,7 +49,7 @@
             android:scrollHorizontally="true"
             android:textSize="@dimen/result_text_size"
             android:textColor="#ffffff"
-            android:textDirection="rtl"
+            android:textDirection="ltr"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -368,7 +368,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/button_state_list"
                 android:clickable="true"
                 android:onClick="buttonPlus"/>
 
