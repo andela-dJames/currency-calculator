@@ -42,7 +42,7 @@
         <item name="android:textSize">@dimen/keyboard_text_size</item>
         <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/key_state_list</item>
+        <item name="android:background">@drawable/default_layer2</item>
         <item name="android:textStyle">normal</item>
     </style>
 
@@ -51,7 +51,7 @@
         <item name="android:textSize">40sp</item>
         <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/key_state_list</item>
+        <item name="android:background">@drawable/default_layer2</item>
         <item name="android:textStyle">normal</item>
         <item name="android:padding">10dp</item>
     </style>
@@ -61,7 +61,7 @@
         <item name="android:textSize">30sp</item>
         <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/key_state_list</item>
+        <item name="android:background">@drawable/default_layer2</item>
         <item name="android:textStyle">normal</item>
         <item name="android:padding">10dp</item>
     </style>
@@ -71,7 +71,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
-        <item name="android:background">@drawable/key_state_list</item>
+        <item name="android:background">@drawable/default_layer2</item>
         <item name="android:textStyle">normal</item>
         <item name="android:padding">10dp</item>
     </style>

@@ -40,28 +40,33 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:gravity="right" />
-        <com.andela.currencycalculator.textview.DisplayTextLight
-            android:layout_width="match_parent"
+            android:gravity="right"
+            android:maxLines="2" />
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/result_text_view"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:textSize="@dimen/result_text_size"
-            android:textColor="#ffffff"
-            android:textDirection="ltr"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_gravity="bottom"
-            android:gravity="right" />
+            android:layout_gravity="end">
+            <com.andela.currencycalculator.textview.DisplayTextLight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_text_view"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textSize="@dimen/result_text_size"
+                android:textColor="#ffffff"
+                android:textDirection="ltr"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="right" />
+        </HorizontalScrollView>
     </LinearLayout>
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorP"
         android:gravity="center"
-
+        android:background="@color/colorP"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:showDividers="middle">
@@ -76,7 +81,7 @@
 
             <com.andela.currencycalculator.textview.DisplayText
                 android:id="@+id/key_base"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="NGN"
@@ -90,7 +95,7 @@
                 android:onClick="selectBaseCurrency"/>
             <com.andela.currencycalculator.textview.DisplayText
                 android:id="@+id/key_target"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="NGN"
@@ -117,7 +122,7 @@
                 android:layout_weight="1"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_delete"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="25dp"
@@ -153,8 +158,10 @@
                 android:textColor="#ffffff"
                 android:gravity="center|center_horizontal"
                 android:clickable="true"
-                android:onClick="buttonSeven"/>
+                android:onClick="buttonSeven"
+                android:background="@drawable/number_state_list"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:clickable="true"
                 android:layout_column="0"
                 android:layout_weight="1"
@@ -180,7 +187,7 @@
                 android:onClick="buttonNine"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_divide"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/divide"
@@ -203,6 +210,7 @@
             android:gravity="center_vertical|center">
 
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_four"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -214,6 +222,7 @@
                 android:gravity="center|center_horizontal"
                 android:onClick="buttonFour"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_five"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -226,6 +235,7 @@
                 android:clickable="true"
                 android:onClick="buttonfive"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_six"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -239,7 +249,7 @@
                 android:onClick="buttonSix"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:id="@+id/key_multiply"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/multiply"
@@ -274,6 +284,7 @@
                 android:clickable="true"
                 android:onClick="buttonOne"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_two"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -286,6 +297,7 @@
                 android:clickable="true"
                 android:onClick="buttonTwo"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_three"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -307,7 +319,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/operatorbutton_state_list"
                 android:clickable="true"
                 android:onClick="buttonMinus"/>
 
@@ -322,6 +334,7 @@
             android:gravity="center_vertical|center">
 
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/decimal_separator"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -334,6 +347,7 @@
                 android:clickable="true"
                 android:onClick="buttonDecimalPoint"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
+                android:background="@drawable/number_state_list"
                 android:id="@+id/key_zero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -368,7 +382,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
-                android:background="@drawable/button_state_list"
+                android:background="@drawable/operatorbutton_state_list"
                 android:clickable="true"
                 android:onClick="buttonPlus"/>
 

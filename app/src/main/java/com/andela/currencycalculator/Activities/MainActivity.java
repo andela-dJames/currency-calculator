@@ -593,6 +593,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Run once in background on First Install
+     * @param context
+     */
     public void runInBackground(Context context) {
         if (isConnected(context)) {
             if (!beenDone(Once.THIS_APP_INSTALL, installDB)) {
@@ -607,6 +611,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Check if Device Is connected to the Internet
+     * @param context
+     * @return
+     */
     private boolean isConnected(Context context) {
         ConnectivityManager manager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -617,6 +626,13 @@ public class MainActivity extends AppCompatActivity {
         return isconnected;
     }
 
+    /**
+     *
+     * @param expression
+     * @return
+     * @throws ParserException
+     * @throws EvaluationException
+     */
     public double setVariables(String expression) throws ParserException, EvaluationException {
         double d = 0;
         try {
@@ -662,6 +678,8 @@ public class MainActivity extends AppCompatActivity {
             String val = resultText.getText().toString();
             resultText.setText("");
             expressionText.setText(val);
+            expressionBuilder.clear();
+            expressionBuilder.add(val);
             hasfinalResult = false;
         }
     }

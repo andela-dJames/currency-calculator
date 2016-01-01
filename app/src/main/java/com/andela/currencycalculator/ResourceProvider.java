@@ -16,7 +16,6 @@ public class ResourceProvider {
     /**
      * An array of content values
      */
-    private ContentValues[] contentValues;
 
     private Context context;
 
