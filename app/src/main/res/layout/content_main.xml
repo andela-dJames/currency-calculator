@@ -43,12 +43,12 @@
             android:gravity="right"
             android:maxLines="2" />
         <HorizontalScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fillViewport="true"
+            android:fillViewport="false"
             android:layout_gravity="end">
             <com.andela.currencycalculator.textview.DisplayTextLight
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/result_text_view"
                 android:singleLine="true"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_gravity="bottom"
+                android:layout_gravity="right"
                 android:gravity="right" />
         </HorizontalScrollView>
     </LinearLayout>
