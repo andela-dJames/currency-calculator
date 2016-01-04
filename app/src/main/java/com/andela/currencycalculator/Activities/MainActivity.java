@@ -473,8 +473,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void convertKey(View v) {
         String expression = expressionText.getText().toString();
+        if (Character.isLetter(expression.charAt(expression.length() - 1))){
+           expression =  expression.substring(0, expression.length()-3);
+        }
        double data =  convert(Double.parseDouble(expression));
-
         resultText.setText(String.valueOf(data));
         String item = rate.getTargetCurrency();
         resultText.append(expressionBuilder(item));
