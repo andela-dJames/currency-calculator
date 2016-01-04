@@ -39,6 +39,7 @@ import com.andela.currencycalculator.parser.exception.ParserException;
 import com.andela.currencycalculator.parser.expressionnodes.ExpressionNode;
 import com.andela.currencycalculator.parser.expressionnodes.SetVariable;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -412,9 +413,10 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void buttonEqualTo(View v) {
+        DecimalFormat format = new DecimalFormat("####.####");
         KeyPadButton keyPadButton = new EqualityKeyPad();
         String res = "";
-        String expressionString = keyPadButton.onKeyPress(expressionText.getText().toString());
+
         if (expressionHolder.isEmpty()) {
             return;
         } else {
@@ -422,8 +424,9 @@ public class MainActivity extends AppCompatActivity {
                 res += expressionHolder.remove();
             }
             double result = evaluate(res);
+            String string = format.format(result);
 
-            resultText.setText(String.valueOf(result));
+            resultText.setText(String.valueOf(string));
         }
 
         Log.d(TAG, res);
@@ -470,9 +473,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void convertKey(View v) {
         String expression = expressionText.getText().toString();
-        if (!currencyOp(expression)){
-           return;
-        }
        double data =  convert(Double.parseDouble(expression));
 
         resultText.setText(String.valueOf(data));
@@ -559,6 +559,7 @@ public class MainActivity extends AppCompatActivity {
 
         resultText.setText("");
         expressionHolder.clear();
+        hasfinalResult = false;
 
     }
 

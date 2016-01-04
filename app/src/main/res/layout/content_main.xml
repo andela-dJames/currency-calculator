@@ -222,6 +222,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:gravity="center|center_horizontal"
+                android:clickable="true"
                 android:onClick="buttonFour"/>
             <com.andela.currencycalculator.textview.DisplayTextLight
                 android:background="@drawable/number_state_list"

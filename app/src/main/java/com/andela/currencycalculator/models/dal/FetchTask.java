@@ -69,10 +69,10 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
         access = new SqlLiteDataAccess(params[0]);
         int i,j, count = 0;
         Rate rate;
-        contentValues = new ContentValues[count];
+        contentValues = new ContentValues[225];
         rates = new ArrayList<Rate>();
         for( i=0; i<curr_codes.size(); i++){
-            for( j= i; j <= (curr_codes.size()-1); j++ ){
+            for( j= 0; j <= (curr_codes.size()-1); j++ ){
 
                 rate = new Rate(curr_codes.get(i),curr_codes.get(j));
 
@@ -134,7 +134,6 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
      */
     @Override
     protected void onPostExecute(List<Rate> list){
-
         for (Rate rate : list){
             Log.d(TAG, rate.getBaseCurrency() + " : " + rate.getTargetCurrency() + ": "+String.valueOf(rate.getExchangeRate()));
         }
