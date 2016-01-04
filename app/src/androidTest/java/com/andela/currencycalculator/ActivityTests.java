@@ -21,8 +21,6 @@ import static org.hamcrest.Matchers.containsString;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ActivityTests {
-    String USD = "USD";
-
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
 
