@@ -8,9 +8,9 @@ public class OperatorKey implements KeyPress {
             if (expression.equals("") || expression.endsWith(".") ||
                     expression.endsWith("+") || expression.endsWith("-") ||
                     expression.endsWith("/") || expression.endsWith("*")){
-                return expression;
+                return "";
             }
             else
-            return expression.concat(keyPadButton.getKeyString());
+            return keyPadButton.getKeyString();
         }
 }

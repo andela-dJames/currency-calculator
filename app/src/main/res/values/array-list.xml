@@ -10,6 +10,21 @@
         <item>AUD</item>
         <item>CHF</item>
         <item>CNY</item>
+        <item>MXN</item>
+        <item>NZD</item>
+        <item>RUB</item>
+        <item>HKD</item>
+        <item>SGD</item>
+        <!--<item>NOK</item>-->
+        <!--<item>TRY</item>-->
+        <!--<item>KRW</item>-->
+        <!--<item>ZAR</item>-->
+        <!--<item>BRL</item>-->
+        <!--<item>INR</item>-->
+        <!--<item>BBD</item>-->
+        <!--<item>BDT</item>-->
+        <!--<item>BHD</item>-->
+        <!--<item>BSD</item>-->
         <item>NGN</item>
         <!--<item>MXN</item>-->
         <!--<item>NZD</item>-->
@@ -26,7 +41,6 @@
         <!--<item>BDT</item>-->
         <!--<item>BHD</item>-->
         <!--<item>BSD</item>-->
-
         <!--<item>XOF</item>-->
         <!--<item>BGN</item>-->
         <!--<item>XAF</item>-->

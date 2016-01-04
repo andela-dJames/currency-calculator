@@ -9,10 +9,11 @@ public class SeparatorKey implements KeyPress {
         public String operate(String expression, KeyPadButton keyPadButton) {
             if (expression.contains(".") || expression.endsWith("+") ||
                     expression.endsWith("-") || expression.endsWith("/") ||
-                    expression.endsWith("*")  ){
-                return expression;
+                    expression.endsWith("*") || Character.isLetter(expression.charAt(expression.length()-1)) ){
+                return "";
             }
 
-            return expression.concat(keyPadButton.getKeyString());
+
+            return keyPadButton.getKeyString();
         }
 }

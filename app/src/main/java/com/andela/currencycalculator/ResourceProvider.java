@@ -16,7 +16,6 @@ public class ResourceProvider {
     /**
      * An array of content values
      */
-    private ContentValues[] contentValues;
 
     private Context context;
 
@@ -51,26 +50,29 @@ public class ResourceProvider {
         return values;
     }
 
-    public ContentValues[] runInLoop(Rate rate, int initial, List<String> list,
-                                     ContentValues values) throws IOException {
+    public ContentValues[] runInLoop(Rate rate, List<String> list,
+                                     ContentValues values, ContentValues[] contentValues) throws IOException {
         int count = 0;
+        values = new ContentValues();
         contentValues = new ContentValues[count];
-        for (int i = initial; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.size(); j++) {
 
-            rate = combineCodes(list.get(initial), list.get(i));
+                rate = combineCodes(list.get(i), list.get(i));
 
-            exchangeRateAPI = new ExchangeRateAPI();
+                exchangeRateAPI = new ExchangeRateAPI();
 
-            String str = exchangeRateAPI.fetchExchangeRate(rate);
+                String str = exchangeRateAPI.fetchExchangeRate(rate);
 
-            double data = Double.parseDouble(str);
+                double data = Double.parseDouble(str);
 
-            rate.setExchangeRate(data);
+                rate.setExchangeRate(data);
 
-             getRateContents(rate, values);
-            contentValues = increaseArraySize(contentValues, count);
-            contentValues[count] = values;
-            count++;
+                getRateContents(rate, values);
+                contentValues = increaseArraySize(contentValues, count);
+                contentValues[count] = values;
+                count++;
+            }
         }
     return contentValues;
     }

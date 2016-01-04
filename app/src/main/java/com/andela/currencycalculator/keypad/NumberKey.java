@@ -8,6 +8,13 @@ public class NumberKey implements KeyPress {
 
         @Override
         public String operate(String expression, KeyPadButton keyPadButton) {
-            return expression.concat(keyPadButton.getKeyString());
+            if (expression.equals("")){
+                return keyPadButton.getKeyString();
+            }
+            if (Character.isLetter(expression.charAt(expression.length()-1)))
+            {
+                return "";
+            }
+            return keyPadButton.getKeyString();
         }
 }

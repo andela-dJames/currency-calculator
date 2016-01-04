@@ -99,6 +99,32 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
 
         access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
         return   rates;
+
+//        exchangeRateAPI = new ExchangeRateAPI();
+//
+//        resourceProvider = new ResourceProvider(params[0]);
+//
+//        List<String> curr_codes = new ArrayList();
+//
+//        curr_codes = resourceProvider.getCurrencyCodesFromResource();
+//
+//        access = new SqlLiteDataAccess(params[0]);
+//
+//        int i, count = 0;
+//
+//        contentValues = new ContentValues[count];
+//        rates = new ArrayList<Rate>();
+//        Rate rate = new Rate();
+//
+//            try {
+//                resourceProvider.runInLoop(rate, curr_codes, rateContents, contentValues);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
+//        return   rates;
+
     }
 
 
