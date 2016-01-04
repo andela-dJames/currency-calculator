@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout parentView;
 
     private Rate rate;
-    private Queue<String> expressionBuilder;
+    private Queue<String> expressionHolder;
 
 
     @Override
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         initializeDisplays();
         resourceProvider = new ResourceProvider(getApplicationContext());
         initializeRates();
-//        runInBackground(getApplicationContext());
+        runInBackground(getApplicationContext());
 //        rate = fetch(rate);
 
     }
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         exRateDisplay = (TextView) findViewById(R.id.exchange_rate_display);
         baseCurrency = (TextView) findViewById(R.id.key_base);
         targetCurrency = (TextView) findViewById(R.id.key_target);
-        expressionBuilder = new LinkedList<String>();
+        expressionHolder = new LinkedList<String>();
     }
 
     /**
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("1");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("2");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("3");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("4");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("5");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
     }
 
     public void buttonSix(View v) {
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("6");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("7");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("8");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("9");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
     }
 
     /**
@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString("0");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
         keyPadButton.setKeyString(".");
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
 
@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
         checkfinalResult();
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
 
     }
@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
         checkfinalResult();
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
     /**
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
         checkfinalResult();
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
     /**
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
         checkfinalResult();
         String result = keyPadButton.onKeyPress(expressionText.getText().toString());
         expressionText.append(result);
-        expressionBuilder.add(result);
+        expressionHolder.add(result);
 
     }
     /**
@@ -415,11 +415,11 @@ public class MainActivity extends AppCompatActivity {
         KeyPadButton keyPadButton = new EqualityKeyPad();
         String res = "";
         String expressionString = keyPadButton.onKeyPress(expressionText.getText().toString());
-        if (expressionBuilder.isEmpty()) {
+        if (expressionHolder.isEmpty()) {
             return;
         } else {
-            while (!expressionBuilder.isEmpty()) {
-                res += expressionBuilder.remove();
+            while (!expressionHolder.isEmpty()) {
+                res += expressionHolder.remove();
             }
             double result = evaluate(res);
 
@@ -441,8 +441,8 @@ public class MainActivity extends AppCompatActivity {
             clearStacks();
         }
         expressionText.setText(result);
-        if (!expressionBuilder.isEmpty()) {
-            expressionBuilder.remove();
+        if (!expressionHolder.isEmpty()) {
+            expressionHolder.remove();
         }
     }
 
@@ -468,6 +468,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void convertKey(View v) {
+        String expression = expressionText.getText().toString();
+        if (!currencyOp(expression)){
+           return;
+        }
+       double data =  convert(Double.parseDouble(expression));
+
+        resultText.setText(String.valueOf(data));
+        String item = rate.getTargetCurrency();
+        resultText.append(expressionBuilder(item));
+
+    }
+
     /**
      * Base Currency Dialog
      * @param v
@@ -488,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
                         exRateDisplay.setText("1 " + item + " =" + rate.getExchangeRate() + " " + rate.getTargetCurrency());
                         if (currencyOp(expressionText.getText().toString())) {
                             String str = "*" + item;
-                            expressionBuilder.add(str);
+                            expressionHolder.add(str);
                             expressionText.append(expressionBuilder(item));
 
                             dialog.dismiss();
@@ -545,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
         expressionText.setText("");
 
         resultText.setText("");
-        expressionBuilder.clear();
+        expressionHolder.clear();
 
     }
 
@@ -678,8 +691,8 @@ public class MainActivity extends AppCompatActivity {
             String val = resultText.getText().toString();
             resultText.setText("");
             expressionText.setText(val);
-            expressionBuilder.clear();
-            expressionBuilder.add(val);
+            expressionHolder.clear();
+            expressionHolder.add(val);
             hasfinalResult = false;
         }
     }

@@ -1,7 +1,8 @@
 package com.andela.currencycalculator.parcer;
 
-import com.andela.currencycalculator.parcer.expressionnodes.ExpressionNode;
-import com.andela.currencycalculator.parcer.expressionnodes.SetVariable;
+import com.andela.currencycalculator.parser.Parser;
+import com.andela.currencycalculator.parser.expressionnodes.ExpressionNode;
+import com.andela.currencycalculator.parser.expressionnodes.SetVariable;
 
 import junit.framework.TestCase;
 
