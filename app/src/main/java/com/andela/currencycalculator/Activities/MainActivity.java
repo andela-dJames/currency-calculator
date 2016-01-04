@@ -559,6 +559,7 @@ public class MainActivity extends AppCompatActivity {
 
         resultText.setText("");
         expressionHolder.clear();
+        hasfinalResult = false;
 
     }
 
