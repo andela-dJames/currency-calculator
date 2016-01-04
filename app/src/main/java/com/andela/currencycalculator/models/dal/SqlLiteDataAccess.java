@@ -127,8 +127,6 @@ public class SqlLiteDataAccess extends SQLiteOpenHelper {
         }
 
         cursor.close();
-
-        database.endTransaction();
         database.close();
         return ex;
     }
