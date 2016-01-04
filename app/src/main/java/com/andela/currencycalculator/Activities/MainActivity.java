@@ -24,7 +24,6 @@ import com.andela.currencycalculator.R;
 import com.andela.currencycalculator.ResourceProvider;
 import com.andela.currencycalculator.keypad.DecimalPointKeypad;
 import com.andela.currencycalculator.keypad.DeleteButton;
-import com.andela.currencycalculator.keypad.EqualityKeyPad;
 import com.andela.currencycalculator.keypad.KeyPadButton;
 import com.andela.currencycalculator.keypad.KeyZero;
 import com.andela.currencycalculator.keypad.NumberKeyPad;
@@ -414,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void buttonEqualTo(View v) {
         DecimalFormat format = new DecimalFormat("####.####");
-        KeyPadButton keyPadButton = new EqualityKeyPad();
         String res = "";
 
         if (expressionHolder.isEmpty()) {
@@ -472,12 +470,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convertKey(View v) {
+        DecimalFormat format = new DecimalFormat("####.####");
         String expression = expressionText.getText().toString();
         if (Character.isLetter(expression.charAt(expression.length() - 1))){
            expression =  expression.substring(0, expression.length()-3);
         }
        double data =  convert(Double.parseDouble(expression));
-        resultText.setText(String.valueOf(data));
+        String string = format.format(data);
+        resultText.setText(string);
         String item = rate.getTargetCurrency();
         resultText.append(expressionBuilder(item));
 
