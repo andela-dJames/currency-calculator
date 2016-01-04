@@ -99,6 +99,7 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
 
         access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
         return   rates;
+
 //        exchangeRateAPI = new ExchangeRateAPI();
 //
 //        resourceProvider = new ResourceProvider(params[0]);
@@ -123,6 +124,7 @@ public class FetchTask extends AsyncTask<Context, String, List<Rate>>{
 //            }
 //        access.bulkInsert(CurrencyConverterContract.ExchangeRates.CONTENT_URI, contentValues);
 //        return   rates;
+
     }
 
 

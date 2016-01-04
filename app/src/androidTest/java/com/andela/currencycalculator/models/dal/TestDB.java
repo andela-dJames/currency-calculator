@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
+import com.andela.currencycalculator.models.currency.Rate;
+
 import java.util.HashSet;
 
 /**
@@ -30,7 +32,7 @@ public class TestDB extends AndroidTestCase {
 
         assertEquals(true, db.isOpen());
         Cursor cr = db.rawQuery("SELECT name FROM sqlite_master where type ='table'", null);
-        assertTrue("Error: This means that the database has not been created correctly", cr.moveToFirst());
+        assertTrue("Error: database has not been created correctly", cr.moveToFirst());
 
         do {
             tableNames.remove(cr.getString(0));
@@ -82,20 +84,25 @@ public class TestDB extends AndroidTestCase {
 
 
         Cursor cursor = db.query(
-                CurrencyConverterContract.ExchangeRates.TABLE_NAME,  // Table to Query
-                null, // all columns
-                null, // Columns for the "where" clause
-                null, // Values for the "where" clause
-                null, // columns to group by
-                null, // columns to filter by row groups
-                null // sort order
+                CurrencyConverterContract.ExchangeRates.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
         );
 
         assertTrue( "Error: No Records returned from location query", cursor.moveToFirst() );
 
-
-
         return rowID;
+    }
+
+    public void testdbQuery() {
+        Rate rate = new Rate("USD", "USD");
+        SqlLiteDataAccess access = new SqlLiteDataAccess(mContext);
+       double val =  access.get(rate.getBaseCurrency(), rate.getTargetCurrency());
+        assertEquals(1.0, rate.getExchangeRate());
     }
 
 
