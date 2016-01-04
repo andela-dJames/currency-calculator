@@ -13,7 +13,7 @@ This Project consist of 3 major modules
 * Parser
 * Activity
 
-### Models
+### MODELS
 
 This module consist of two packages. It represents a set of data to be used by the application. 
 
@@ -25,13 +25,13 @@ This module consist of two packages. It represents a set of data to be used by t
 
 * The Observer is responsible for listening for changes to the rate properties and notifies the program about the changes 
 
-### Parser
+### PARSER
 
 This module is responsible for parsing expresions that are inputed by a user and it evaluates them. it consist of grammers, expression nodes
 tokens, tokenizers and exceptions. This is a very intelligent module that can be extended to solve more mathematical expressions
 It can be extended by adding new type of expression nodes.
 
-### Activity
+### ACTIVITY
 
 This module serves as the controller for the application. It manipulates the views and and populates them with the data
 that is needed to carryout the opertion.
