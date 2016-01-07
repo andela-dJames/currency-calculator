@@ -412,24 +412,30 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void buttonEqualTo(View v) {
-        DecimalFormat format = new DecimalFormat("####.####");
-        String res = "";
 
-        if (expressionHolder.isEmpty()) {
+        if (isOperator(expressionText.getText().toString())){
             return;
-        } else {
-            while (!expressionHolder.isEmpty()) {
-                res += expressionHolder.remove();
-            }
-            double result = evaluate(res);
-            String string = format.format(result);
-
-            resultText.setText(String.valueOf(string));
         }
 
-        Log.d(TAG, res);
+
+
+            DecimalFormat format = new DecimalFormat("####.####");
+            String res = "";
+
+            if (expressionHolder.isEmpty()) {
+                return;
+            } else {
+                while (!expressionHolder.isEmpty()) {
+                    res += expressionHolder.remove();
+                }
+                double result = evaluate(res);
+                String string = format.format(result);
+                checkfinalResult();
+                resultText.setText(String.valueOf(string));
+            }
 
         hasfinalResult = true;
+
     }
     /**
      * Calculator Delete key handler
@@ -445,6 +451,7 @@ public class MainActivity extends AppCompatActivity {
         if (!expressionHolder.isEmpty()) {
             expressionHolder.remove();
         }
+        
     }
 
     /**
@@ -698,5 +705,8 @@ public class MainActivity extends AppCompatActivity {
             expressionHolder.add(val);
             hasfinalResult = false;
         }
+    }
+    private boolean isOperator(String exp) {
+        return exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("/") || exp.endsWith("*");
     }
 }
