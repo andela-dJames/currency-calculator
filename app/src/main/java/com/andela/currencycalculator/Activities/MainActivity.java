@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
         if (!expressionHolder.isEmpty()) {
             expressionHolder.remove();
         }
-        
+
     }
 
     /**
@@ -477,6 +477,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convertKey(View v) {
+        if (expressionText.getText().toString().equals("")){
+            return;
+        }
         DecimalFormat format = new DecimalFormat("####.####");
         String expression = expressionText.getText().toString();
         if (Character.isLetter(expression.charAt(expression.length() - 1))){
